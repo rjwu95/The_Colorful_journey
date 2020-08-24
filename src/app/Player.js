@@ -1,4 +1,4 @@
-import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH } from '../constant'
+import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED } from '../constant'
 
 class Player {
   constructor(ctx, x, y) {
@@ -15,7 +15,7 @@ class Player {
     this.ctx.restore()
   }
   newPos() {
-    this.x += this.speedX
+    this.x += MAX_SPEED < Math.abs(this.speedX) ? ((this.speedX >= 0 ? 1 : -1) * MAX_SPEED) : this.speedX
     this.y += this.speedY
   }
 }
