@@ -1,8 +1,6 @@
 export class Control {
-  constructor(game, player) {
-    this.game = game
+  constructor(player) {
     this.player = player
-    this.keys_ = new Map();
   }
   init() {
     window.addEventListener("keydown", event => {
