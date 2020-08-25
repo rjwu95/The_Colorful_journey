@@ -1,4 +1,16 @@
 import Game from './app/Game'
 
-const game = new Game();
-game.init();
+let game;
+
+function init() {
+  game = new Game();
+  game.init();
+  requestAnimationFrame(tick);
+}
+
+export function tick(timestamp) {
+  game.updateGameArea()
+  requestAnimationFrame(tick);
+}
+
+init();

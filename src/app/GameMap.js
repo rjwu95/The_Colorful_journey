@@ -5,8 +5,8 @@ import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
 const mapBuffer = document.createElement('canvas').getContext('2d');
 
 class GameMap {
-  constructor(ctx) {
-    this.ctx = ctx;
+  constructor(context) {
+    this.context = context;
     mapBuffer.canvas.width = MAP_WIDTH * 2;
     mapBuffer.canvas.height = MAP_HEIGHT;
   }
@@ -20,7 +20,7 @@ class GameMap {
   }
 
   render() {
-    this.ctx.drawImage(mapBuffer.canvas, -MAP_WIDTH, 0);
+    this.context.drawImage(mapBuffer.canvas, -MAP_WIDTH, 0);
   }
 }
 
