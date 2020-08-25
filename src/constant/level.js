@@ -1,5 +1,9 @@
+import {COLUMNS} from './map';
+
 export const level = [
-  {x: 0, y: 24, w: 32, h: 8},
-  {x: 10, y: 19, w: 8, h: 5},
-  {x: 26, y: 8, w: 6, h : 2}
+  {x: 0, y: 26, w: COLUMNS * 2, h: 6},
+  {x: 0, y: 15, w: 6, h: 11},
+  {x: 5, y: 20, w: 7, h: 6},
+  {x: 40, y: 24, w: 6, h: 2},
+  {x: COLUMNS * 2 - 10, y: 10, w: 10, h: 2}
 ]
