@@ -14,10 +14,11 @@ class Game {
     this.map = new GameMap(this.context);
     this.map.load(level);
 
-    this.player = new Player(this.context, 10, 120);
-    this.updateGameArea()
+    this.player = new Player(this.context, 0, 0);
+    this.updateGameArea();
+
     this.control = new Control(this.player)
-    this.control.init()
+    this.control.init();
   }
 
   clear() {
@@ -25,7 +26,8 @@ class Game {
   }
 
   updateGameArea() {
-    this.clear();
+    // Comment : Map is clear also
+    // this.clear();
     this.player.newPos();
     this.player.renderPlayer();
   }

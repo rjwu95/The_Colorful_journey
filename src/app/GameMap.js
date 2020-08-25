@@ -20,7 +20,7 @@ class GameMap {
   }
 
   render() {
-    this.context.drawImage(mapBuffer.canvas, -MAP_WIDTH, 0);
+    this.context.drawImage(mapBuffer.canvas, 0, 0);
   }
 }
 

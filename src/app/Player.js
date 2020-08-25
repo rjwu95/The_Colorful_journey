@@ -9,10 +9,10 @@ class Player {
     this.y = y;
   }
   renderPlayer() {
-    this.ctx.save()
+    this.ctx.save();
     this.ctx.fillStyle = PLAYER_COLOR;
     this.ctx.fillRect(this.x, this.y, PLAYER_WIDTH, PLAYER_HEIGHT);
-    this.ctx.restore()
+    this.ctx.restore();
   }
   newPos() {
     this.x += MAX_SPEED < Math.abs(this.speedX) ? ((this.speedX >= 0 ? 1 : -1) * MAX_SPEED) : this.speedX
