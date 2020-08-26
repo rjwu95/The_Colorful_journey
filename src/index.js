@@ -5,6 +5,7 @@ let game;
 function init() {
   game = new Game();
   game.init();
+
   requestAnimationFrame(tick);
 }
 

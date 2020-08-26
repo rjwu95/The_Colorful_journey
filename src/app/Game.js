@@ -21,15 +21,12 @@ class Game {
     this.control.init();
   }
 
-  clear() {
-    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
   updateGameArea() {
-    // Comment : Map is clear also
-    // this.clear();
-    this.player.newPos();
-    this.player.renderPlayer();
+    const {context, map, player} = this;
+    
+    context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
+    map.render();
+    player.render();
   }
 }
 
