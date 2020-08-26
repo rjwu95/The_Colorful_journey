@@ -1,4 +1,4 @@
-import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED } from '../constant'
+import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED } from '../constant/player'
 
 class Player {
   constructor(ctx, x, y) {
