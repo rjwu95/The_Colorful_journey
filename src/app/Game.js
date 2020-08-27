@@ -2,7 +2,8 @@ import GameMap from './GameMap';
 import Player from "./Player";
 import Control from "./Control";
 import Camera from "./Camera"
-import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
+import Item from './Item';
+import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE} from '../constant/map';
 import {level} from '../constant/level';
 
 class Game {
@@ -14,23 +15,34 @@ class Game {
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
-    this.map.load(level);
+    this.map.load(level.map);
 
     this.player = new Player(this.context, 0, 0);
     
     this.control = new Control(this.player)
     this.control.init();
 
-    this.updateGameArea();
+    this.items = level.items.map(({x, y, color}) => {
+      const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player);
+      return item;
+    });
   }
 
   updateGameArea() {
-    const {context, map, player, camera} = this;
+    const {context, map, player, camera, items} = this;
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
+  
+    // Todo: need to fix to check all items color
+    if(!items.some(item => item.show)) {
+      context.fillStyle = items[0].color;
+      context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
+    }
+
     camera.update(player.x);
     map.render(camera.cx);
     player.render(camera.cx);
+    items.every(item => item.render(camera.cx));
   }
 }
 
