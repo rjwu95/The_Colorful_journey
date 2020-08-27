@@ -1,5 +1,5 @@
 import { BLOCK_SIZE } from "../constant/map";
-import { PLAYER_WIDTH } from '../constant/player'
+import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 
 class Item {
   constructor(x, y, color, ctx, player) {
@@ -15,9 +15,10 @@ class Item {
     const {ctx, x, y, player} = this;
     
     // collision
-    // Todo: To Add the y collision
     if (x - BLOCK_SIZE * 0.9 < player.x + PLAYER_WIDTH
-      && x + BLOCK_SIZE * 0.9 > player.x) {
+      && x + BLOCK_SIZE * 0.9 > player.x
+      && y - BLOCK_SIZE * 0.9 < player.y + PLAYER_HEIGHT
+      && y + BLOCK_SIZE * 0.9 > player.y) {
         this.show = false;
       }
 
