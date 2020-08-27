@@ -1,6 +1,7 @@
 import GameMap from './GameMap';
 import Player from "./Player";
 import Control from "./Control";
+import Camera from "./Camera"
 import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
 import {level} from '../constant/level';
 
@@ -11,22 +12,25 @@ class Game {
     this.canvas.height = MAP_HEIGHT;
     this.context = this.canvas.getContext('2d');
 
+    this.camera = new Camera();
     this.map = new GameMap(this.context);
     this.map.load(level);
 
     this.player = new Player(this.context, 0, 0);
-    this.updateGameArea();
-
+    
     this.control = new Control(this.player)
     this.control.init();
+
+    this.updateGameArea();
   }
 
   updateGameArea() {
-    const {context, map, player} = this;
+    const {context, map, player, camera} = this;
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-    map.render();
-    player.render();
+    camera.update(player.x);
+    map.render(camera.cx);
+    player.render(camera.cx);
   }
 }
 

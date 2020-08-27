@@ -19,8 +19,8 @@ class GameMap {
     this.render();
   }
 
-  render() {
-    this.context.drawImage(mapBuffer.canvas, 0, 0);
+  render(cx) {
+    this.context.drawImage(mapBuffer.canvas, -cx, 0);
   }
 }
 

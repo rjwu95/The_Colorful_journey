@@ -14,11 +14,11 @@ class Player {
     this.y += this.speedY
   }
 
-  render() {
+  render(cx) {
     this.ctx.save();
     this.newPos();
     this.ctx.fillStyle = PLAYER_COLOR;
-    this.ctx.fillRect(this.x, this.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    this.ctx.fillRect(this.x - cx, this.y, PLAYER_WIDTH, PLAYER_HEIGHT);
     this.ctx.restore();
   }
 }
