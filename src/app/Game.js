@@ -21,8 +21,6 @@ class Game {
     
     this.control = new Control(this.player)
     this.control.init();
-
-    this.updateGameArea();
   }
 
   updateGameArea() {
