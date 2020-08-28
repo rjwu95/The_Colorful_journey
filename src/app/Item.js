@@ -9,10 +9,11 @@ class Item {
     this.color = color;
     this.player = player;
     this.show = true;
+    this.changeBackground = true;
   }
 
   render(cx) {
-    const {ctx, x, y, player} = this;
+    const {ctx, x, y, player, color} = this;
     
     // collision
     if (x - BLOCK_SIZE * 0.9 < player.x + PLAYER_WIDTH
@@ -26,7 +27,7 @@ class Item {
         ctx.beginPath();
         ctx.arc(x - cx, y, BLOCK_SIZE * 0.9, 0, 2 * Math.PI);
         ctx.stroke();
-        ctx.fillStyle = this.color;
+        ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
         ctx.fill();
       } else {
         

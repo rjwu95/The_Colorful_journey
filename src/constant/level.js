@@ -10,6 +10,6 @@ export const level =
   {x: COLUMNS * 2 - 10, y: 10, w: 10, h: 2}
   ],
   items: [
-    {x: COLUMNS * 2 - 5, y: 24, color: 'orange'}
+    {x: COLUMNS * 2 - 5, y: 24, color: {r: 255, g: 102, b: 0}},
   ]
 }

@@ -6,6 +6,9 @@ import Item from './Item';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE} from '../constant/map';
 import {level} from '../constant/level';
 
+const colorObj = {r: 0, g: 0, b: 0};
+let hasBackgroundColor = false;
+
 class Game {
   init() {
     this.canvas = document.getElementById('canvas');
@@ -33,16 +36,28 @@ class Game {
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
   
-    // Todo: need to fix to check all items color
-    if(!items.some(item => item.show)) {
-      context.fillStyle = items[0].color;
+    items.forEach(item => {
+      if (!item.show && item.changeBackground) {
+        hasBackgroundColor = true;
+        colorObj.r += item.color.r;
+        colorObj.g += item.color.g;
+        colorObj.b += item.color.b;
+        item.changeBackground = false;
+      }
+    })
+
+    
+    if(hasBackgroundColor) {
+      context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
       context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
     }
 
     camera.update(player.x);
     map.render(camera.cx);
     player.render(camera.cx);
-    items.every(item => item.render(camera.cx));
+    items.forEach(item => {
+      item.render(camera.cx)
+    });
   }
 }
 
