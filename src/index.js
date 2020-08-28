@@ -2,16 +2,16 @@ import Game from './app/Game'
 
 let game;
 
+function loop() {
+  game.update()
+  window.requestAnimationFrame(loop);
+}
+
 function init() {
   game = new Game();
   game.init();
 
-  requestAnimationFrame(tick);
-}
-
-export function tick(timestamp) {
-  game.updateGameArea()
-  requestAnimationFrame(tick);
+  window.requestAnimationFrame(loop);
 }
 
 init();
