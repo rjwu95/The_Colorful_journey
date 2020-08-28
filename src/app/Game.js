@@ -5,6 +5,7 @@ import Camera from "./Camera"
 import Item from './Item';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE} from '../constant/map';
 import {level} from '../constant/level';
+import Block from './Block';
 
 const colorObj = {r: 0, g: 0, b: 0};
 let hasBackgroundColor = false;
@@ -20,7 +21,7 @@ class Game {
     this.map = new GameMap(this.context);
     this.map.load(level.map);
 
-    this.player = new Player(this.context, 0, 0);
+    this.player = new Player(this.context, 0, 24 * BLOCK_SIZE);
     
     this.control = new Control(this.player)
     this.control.init();
@@ -29,10 +30,15 @@ class Game {
       const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player);
       return item;
     });
+
+    this.blocks = level.blocks.map(({x, y, color}) => {
+      const block =  new Block(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player);
+      return block;
+    });
   }
 
   updateGameArea() {
-    const {context, map, player, camera, items} = this;
+    const {context, map, player, camera, items, blocks} = this;
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
   
@@ -54,10 +60,14 @@ class Game {
 
     camera.update(player.x);
     map.render(camera.cx);
-    player.render(camera.cx);
     items.forEach(item => {
       item.render(camera.cx)
     });
+    blocks.forEach(item => {
+      item.render(camera.cx, colorObj)
+    });
+    
+    player.render(camera.cx);
   }
 }
 
