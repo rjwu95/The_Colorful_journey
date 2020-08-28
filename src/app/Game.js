@@ -4,7 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
 import {level} from '../constant/level';
-import { PLAYER_HEIGHT } from '../constant/player';
+import { PLAYER_HEIGHT, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player';
 
 class Game {
   init() {
@@ -35,20 +35,20 @@ class Game {
   }
   update() {
     if (this.control.jump && this.player.jumping == false) {
-      this.player.speedY -= 20;
+      this.player.speedY -= JUMP_ACCELERATION;
       this.player.jumping = true;
     }
     if (this.control.left) {
-      this.player.speedX -= 0.5;
+      this.player.speedX -= HORIZONTAL_ACCELERATION;
     }
     if (this.control.right) {
-      this.player.speedX += 0.5;
+      this.player.speedX += HORIZONTAL_ACCELERATION;
     }
-    this.player.speedY += 1.5;// gravity
+    this.player.speedY += GRAVITY;// gravity
     this.player.x += this.player.speedX;
     this.player.y += this.player.speedY;
-    this.player.speedX *= 0.9;// friction
-    this.player.speedY *= 0.9;// friction
+    this.player.speedX *= FRICTION_RATIO;// friction
+    this.player.speedY *= FRICTION_RATIO;// friction
   
     // if this.player is falling below floor line
     if (this.player.y > MAP_HEIGHT - 16 - PLAYER_HEIGHT) {
