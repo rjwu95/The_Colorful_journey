@@ -1,5 +1,5 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
-import { BLOCK_SIZE, MAP_HEIGHT } from '../constant/map';
+import { BLOCK_SIZE, MAP_HEIGHT, MAP_WIDTH } from '../constant/map';
 
 class Player {
   constructor(x, y) {
@@ -36,7 +36,16 @@ class Player {
     // if player is falling below floor line
     if (this.y > 26 * BLOCK_SIZE - PLAYER_HEIGHT) {
       this.stop(26 * BLOCK_SIZE - PLAYER_HEIGHT)
-      }
+    }
+
+    // if player go out the map
+    if (this.x < 0) {
+      this.x = 0;
+    }
+
+    if (this.x + PLAYER_WIDTH> MAP_WIDTH * 2) {
+      this.x = MAP_WIDTH * 2 - PLAYER_WIDTH;
+    }
   }
 
   stop(dy) {

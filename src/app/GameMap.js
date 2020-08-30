@@ -1,5 +1,5 @@
 import {scaledMap} from '../utils/utils';
-import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
+import {TILE_MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
 
 // The map tile buffer canvas' context
 const mapBuffer = document.createElement('canvas').getContext('2d');
@@ -7,7 +7,7 @@ const mapBuffer = document.createElement('canvas').getContext('2d');
 class GameMap {
   constructor(context) {
     this.context = context;
-    mapBuffer.canvas.width = MAP_WIDTH * 2;
+    mapBuffer.canvas.width = TILE_MAP_WIDTH;
     mapBuffer.canvas.height = MAP_HEIGHT;
   }
 
