@@ -6,7 +6,6 @@ import Item from './Item';
 import Block from './Block';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE} from '../constant/map';
 import {level} from '../constant/level';
-import { PLAYER_HEIGHT, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player';
 
 const colorObj = {r: 0, g: 0, b: 0};
 let hasBackgroundColor = false;
@@ -21,11 +20,11 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     this.map.load(level.map);
-
-    this.player = new Player(this.context, 0, 24 * BLOCK_SIZE);
     
     this.control = new Control(this.player)
     this.control.init();
+
+    this.player = new Player(this.control, this.context, 0, 24 * BLOCK_SIZE);
 
     this.items = level.items.map(({x, y, color}) => {
       const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player);
@@ -38,8 +37,9 @@ class Game {
     });
   }
 
-  updateGameArea() {
+  update() {
     const {context, map, player, camera, items, blocks} = this;
+    player.update()
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
   
@@ -69,32 +69,6 @@ class Game {
     });
     
     player.render(camera.cx);
-  }
-  update() {
-    const {control, player} = this;
-    if (control.jump && player.jumping == false) {
-      player.speedY -= JUMP_ACCELERATION;
-      player.jumping = true;
-    }
-    if (control.left) {
-      player.speedX -= HORIZONTAL_ACCELERATION;
-    }
-    if (control.right) {
-      player.speedX += HORIZONTAL_ACCELERATION;
-    }
-    player.speedY += GRAVITY;// gravity
-    player.x += player.speedX;
-    player.y += player.speedY;
-    player.speedX *= FRICTION_RATIO;// friction
-    player.speedY *= FRICTION_RATIO;// friction
-  
-    // if player is falling below floor line
-    if (player.y > MAP_HEIGHT - PLAYER_HEIGHT) {
-      player.jumping = false;
-      player.y = MAP_HEIGHT - PLAYER_HEIGHT;
-      player.speedY = 0;
-    }
-    this.updateGameArea();
   }
 }
 
