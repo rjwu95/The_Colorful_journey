@@ -16,7 +16,6 @@ class GameMap {
     scaledMapData.forEach(({x, y, w, h}) => {
       mapBuffer.fillRect(x, y, w, h);
     });
-    this.render();
   }
 
   render(cx) {
