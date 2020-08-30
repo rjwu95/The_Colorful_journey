@@ -1,4 +1,4 @@
-import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED } from '../constant/player'
+import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH } from '../constant/player'
 
 class Player {
   constructor(ctx, x, y) {
@@ -10,14 +10,8 @@ class Player {
     this.jumping = false
   }
 
-  newPos() {
-    this.x += MAX_SPEED < Math.abs(this.speedX) ? ((this.speedX >= 0 ? 1 : -1) * MAX_SPEED) : this.speedX
-    this.y += this.speedY
-  }
-
   render(cx) {
     this.ctx.save();
-    this.newPos();
     this.ctx.fillStyle = PLAYER_COLOR;
     this.ctx.fillRect(this.x - cx, this.y, PLAYER_WIDTH, PLAYER_HEIGHT);
     this.ctx.restore();
