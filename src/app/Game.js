@@ -71,27 +71,28 @@ class Game {
     player.render(camera.cx);
   }
   update() {
-    if (this.control.jump && this.player.jumping == false) {
-      this.player.speedY -= JUMP_ACCELERATION;
-      this.player.jumping = true;
+    const {control, player} = this;
+    if (control.jump && player.jumping == false) {
+      player.speedY -= JUMP_ACCELERATION;
+      player.jumping = true;
     }
-    if (this.control.left) {
-      this.player.speedX -= HORIZONTAL_ACCELERATION;
+    if (control.left) {
+      player.speedX -= HORIZONTAL_ACCELERATION;
     }
-    if (this.control.right) {
-      this.player.speedX += HORIZONTAL_ACCELERATION;
+    if (control.right) {
+      player.speedX += HORIZONTAL_ACCELERATION;
     }
-    this.player.speedY += GRAVITY;// gravity
-    this.player.x += this.player.speedX;
-    this.player.y += this.player.speedY;
-    this.player.speedX *= FRICTION_RATIO;// friction
-    this.player.speedY *= FRICTION_RATIO;// friction
+    player.speedY += GRAVITY;// gravity
+    player.x += player.speedX;
+    player.y += player.speedY;
+    player.speedX *= FRICTION_RATIO;// friction
+    player.speedY *= FRICTION_RATIO;// friction
   
-    // if this.player is falling below floor line
-    if (this.player.y > MAP_HEIGHT - 16 - PLAYER_HEIGHT) {
-      this.player.jumping = false;
-      this.player.y = MAP_HEIGHT - 16 - PLAYER_HEIGHT;
-      this.player.speedY = 0;
+    // if player is falling below floor line
+    if (player.y > MAP_HEIGHT - PLAYER_HEIGHT) {
+      player.jumping = false;
+      player.y = MAP_HEIGHT - PLAYER_HEIGHT;
+      player.speedY = 0;
     }
     this.updateGameArea();
   }
