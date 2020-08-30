@@ -6,7 +6,6 @@ import Item from './Item';
 import Block from './Block';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE, GAME_STATE} from '../constant/map';
 import {level} from '../constant/level';
-import { PLAYER_HEIGHT, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player';
 
 const colorObj = {r: 0, g: 0, b: 0};
 let hasBackgroundColor = false;
@@ -24,7 +23,7 @@ class Game {
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
-    this.player = new Player(this.context, 0, 24 * BLOCK_SIZE);
+    this.player = new Player(0, 0);
     this.control = new Control(this.player)
 
     if (this.state === GAME_STATE.GAME_READY) {
@@ -53,7 +52,8 @@ class Game {
 
   update() {
     const {player, camera, items} = this;
-    // player.update();
+    player.move(this.control);
+    player.update();
     camera.update(player.x);
 
     items.forEach(item => {
@@ -65,29 +65,6 @@ class Game {
         item.changeBackground = false;
       }
     })
-
-    if (this.control.jump && this.player.jumping == false) {
-      this.player.speedY -= JUMP_ACCELERATION;
-      this.player.jumping = true;
-    }
-    if (this.control.left) {
-      this.player.speedX -= HORIZONTAL_ACCELERATION;
-    }
-    if (this.control.right) {
-      this.player.speedX += HORIZONTAL_ACCELERATION;
-    }
-    this.player.speedY += GRAVITY;// gravity
-    this.player.x += this.player.speedX;
-    this.player.y += this.player.speedY;
-    this.player.speedX *= FRICTION_RATIO;// friction
-    this.player.speedY *= FRICTION_RATIO;// friction
-  
-    // if this.player is falling below floor line
-    if (this.player.y > MAP_HEIGHT - 16 - PLAYER_HEIGHT) {
-      this.player.jumping = false;
-      this.player.y = MAP_HEIGHT - 16 - PLAYER_HEIGHT;
-      this.player.speedY = 0;
-    }
   }
 
   render() {
@@ -104,7 +81,6 @@ class Game {
     } else {
       this.update();
       map.render(camera.cx);
-      player.render(camera.cx);
       items.forEach(item => {
         item.render(camera.cx)
       });
@@ -112,6 +88,7 @@ class Game {
         item.render(camera.cx, colorObj)
       });
     }
+    player.render(camera.cx, context);
   }
 }
 
