@@ -3,7 +3,7 @@ import Player from "./Player";
 import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
-import Block from './Block';
+import Box from './Box';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE, GAME_STATE} from '../constant/map';
 import {level} from '../constant/level';
 
@@ -44,19 +44,21 @@ class Game {
       return item;
     });
 
-    this.blocks = stage.blocks.map(({x, y, color}) => {
-      const block =  new Block(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
-      return block;
+    this.boxes = stage.boxes.map(({x, y, color}) => {
+      const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
+      return box;
     });
   }
 
   update() {
-    const {player, camera, items} = this;
+    const {player, camera, items, boxes} = this;
     player.move(this.control);
     player.update();
     camera.update(player.x);
 
     items.forEach(item => {
+      item.update();
+
       if (!item.show && item.changeBackground) {
         hasBackgroundColor = true;
         colorObj.r += item.color.r;
@@ -65,10 +67,14 @@ class Game {
         item.changeBackground = false;
       }
     })
+
+    boxes.forEach(box => {
+      box.update(colorObj)
+    });
   }
 
   render() {
-    const {state, context, map, player, camera, items, blocks} = this;
+    const {state, context, map, player, camera, items, boxes} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
     if(hasBackgroundColor) {
@@ -84,8 +90,8 @@ class Game {
       items.forEach(item => {
         item.render(camera.cx)
       });
-      blocks.forEach(item => {
-        item.render(camera.cx, colorObj)
+      boxes.forEach(box => {
+        box.render(camera.cx)
       });
     }
     player.render(camera.cx, context);
