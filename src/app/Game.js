@@ -24,7 +24,7 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     this.player = new Player(0, 0);
-    this.control = new Control(this.player)
+    this.control = new Control()
 
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
