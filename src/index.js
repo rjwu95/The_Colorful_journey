@@ -3,7 +3,7 @@ import Game from './app/Game'
 let game;
 
 function loop() {
-  game.update()
+  game.render()
   window.requestAnimationFrame(loop);
 }
 
