@@ -1,8 +1,8 @@
-import { BLOCK_SIZE } from "../constant/map";
+import { BOX_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 
-class Block extends Item{
+class Box extends Item{
   constructor(x, y, color, ctx, player) {
     super(x, y, color, ctx, player);
   }
@@ -15,27 +15,27 @@ class Block extends Item{
     )
   }
 
-  render(cx, backgroundColor) {
-    const {ctx, x, y, player, color} = this;
-    
-
+  update(backgroundColor) {
+    const {x, y, player, color} = this;
     // collision
     if (x < player.x + PLAYER_WIDTH
-      && x + BLOCK_SIZE * 6 > player.x
+      && x + BOX_SIZE > player.x
       && y < player.y + PLAYER_HEIGHT
-      && y + BLOCK_SIZE * 6 > player.y
+      && y + BOX_SIZE > player.y
       && (color !== backgroundColor && !this.checkInit(backgroundColor))) {
-        player.x = x + BLOCK_SIZE * 6
+        player.x = x + BOX_SIZE
         player.speedX = 0;
       }
+  }
 
-      if (this.show) {
-        ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-        ctx.fillRect(x - cx, y, BLOCK_SIZE * 6, BLOCK_SIZE * 6);
-      } else {
-        
-      }
+  render(cx) {
+    const {ctx, x, y, color} = this;
+
+    if (this.show) {
+      ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
+      ctx.fillRect(x - cx, y, BOX_SIZE, BOX_SIZE);
+    }
   }
 }
 
-export default Block;
+export default Box;

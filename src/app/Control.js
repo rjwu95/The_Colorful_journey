@@ -1,18 +1,15 @@
 export class Control {
-  constructor(player) {
-    this.player = player
+  constructor() {
     this.left = false
     this.right = false
     this.jump = false
   }
+  
   init() {
     window.addEventListener("keydown", event => this.keyListener(event));
     window.addEventListener("keyup", event => this.keyListener(event))
   }
-  clearmove() {
-    this.player.speedX = 0; 
-    this.player.speedY = 0; 
-  }
+
   keyListener(event) {
     const keyState = (event.type == "keydown") ? true : false;
 
