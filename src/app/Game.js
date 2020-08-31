@@ -90,9 +90,9 @@ class Game {
       items.forEach(item => {
         item.render(camera.cx)
       });
-      // boxes.forEach(box => {
-      //   box.render(camera.cx)
-      // });
+      boxes.forEach(box => {
+        box.render(camera.cx)
+      });
     }
     player.render(camera.cx, context);
   }
