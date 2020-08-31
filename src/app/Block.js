@@ -15,7 +15,7 @@ class Block extends Item{
     )
   }
 
-  render(cx, backgroundColor) {
+  render(cx, backgroundColor, control) {
     const {ctx, x, y, player, color} = this;
     
 
@@ -25,16 +25,19 @@ class Block extends Item{
       && y < player.y + PLAYER_HEIGHT
       && y + BLOCK_SIZE * 6 > player.y
       && (color !== backgroundColor && !this.checkInit(backgroundColor))) {
-        player.x = x + BLOCK_SIZE * 6
-        player.speedX = 0;
+        if (true) { // when hold state is true
+          if(control.left) this.x = this.player.x - BLOCK_SIZE * 6
+          else if (control.right) this.x = this.player.x + PLAYER_WIDTH 
+          player.speedX = 0;
+        }
       }
 
-      if (this.show) {
-        ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-        ctx.fillRect(x - cx, y, BLOCK_SIZE * 6, BLOCK_SIZE * 6);
-      } else {
-        
-      }
+    if (this.show) {
+      ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
+      ctx.fillRect(x - cx, y, BLOCK_SIZE * 6, BLOCK_SIZE * 6);
+    } else {
+      
+    }
   }
 }
 
