@@ -14,5 +14,8 @@ export const level =
   ],
   blocks: [
     {x: COLUMNS * 2 - 16, y: 20, color: {r: 113, g: 107, b: 107}}
+  ],
+  boxes: [
+    {x: 10, y: 26, color: {r: 255, g: 255, b: 255}}
   ]
 }

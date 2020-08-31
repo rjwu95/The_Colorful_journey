@@ -4,6 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
 import Block from './Block';
+import Box from './Box';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE} from '../constant/map';
 import {level} from '../constant/level';
 
@@ -35,10 +36,14 @@ class Game {
       const block =  new Block(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player);
       return block;
     });
+    this.boxes = level.boxes.map(({x, y, color}) => {
+      const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, this.context, this.player, this.control);
+      return box;
+    });
   }
 
   update() {
-    const {context, map, player, camera, items, blocks} = this;
+    const {context, map, player, camera, items, blocks, boxes} = this;
     player.update()
     
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
@@ -65,6 +70,9 @@ class Game {
       item.render(camera.cx)
     });
     blocks.forEach(item => {
+      item.render(camera.cx, colorObj)
+    });
+    boxes.forEach(item => {
       item.render(camera.cx, colorObj)
     });
     
