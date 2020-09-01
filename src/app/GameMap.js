@@ -13,6 +13,7 @@ class GameMap {
 
   load(map) {
     const scaledMapData = scaledMap(map);
+    mapBuffer.clearRect(0, 0, TILE_MAP_WIDTH, MAP_HEIGHT)
     scaledMapData.forEach(({x, y, w, h}) => {
       mapBuffer.fillRect(x, y, w, h);
     });

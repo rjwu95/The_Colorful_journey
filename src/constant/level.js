@@ -14,6 +14,15 @@ export const level = [
     ],
     boxes: [
       {x: COLUMNS * 2 - 16, y: 21, color: {r: 113, g: 107, b: 107}}
-    ]
+    ],
+    portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'}
+  },
+  {
+    map: [
+    {x: 0, y: 26, w: COLUMNS * 2, h: 6},
+    ],
+    items: [],
+    boxes: [],
+    portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'}
   }
 ];
