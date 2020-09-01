@@ -33,31 +33,30 @@ class Game {
 
   load(stageNum) {
     const {map, control, context} = this;
-    const stage = level[stageNum];
+    this.stage = level[stageNum];
 
-    map.load(stage.map);
+    map.load(this.stage.map);
     control.init();
 
     this.player = new Player(0, 0);
 
-    console.log(stage.portal)
-    this.portal = new Portal(stage.portal, this.context, this.player);
+    this.portal = new Portal(this.stage.portal, this.context, this.player);
   
-    this.items = stage.items.map(({x, y, color}) => {
+    this.items = this.stage.items.map(({x, y, color}) => {
       const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return item;
     });
 
-    this.boxes = stage.boxes.map(({x, y, color}) => {
+    this.boxes = this.stage.boxes.map(({x, y, color}) => {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return box;
     });
   }
 
   update() {
-    const {player, camera, items, boxes, portal} = this;
-    player.move(this.control);
-    player.update();
+    const {player, camera, control, stage, items, boxes, portal} = this;
+    player.move(control);
+    player.update(stage.map);
     camera.update(player.x);
     portal.update();
     items.forEach(item => {
