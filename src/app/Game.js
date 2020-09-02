@@ -23,7 +23,7 @@ class Game {
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
-    this.player = new Player(0, 0);
+    this.player = new Player(20, 0);
     this.control = new Control()
 
     if (this.state === GAME_STATE.GAME_READY) {
@@ -34,26 +34,26 @@ class Game {
 
   load(stageNum) {
     const {map, control, context, player} = this;
-    const stage = level[stageNum];
+    this.stage = level[stageNum];
 
-    map.load(stage.map);
+    map.load(this.stage.map);
     control.init();
 
-    this.items = stage.items.map(({x, y, color}) => {
+    this.items = this.stage.items.map(({x, y, color}) => {
       const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
       return item;
     });
 
-    this.boxes = stage.boxes.map(({x, y, color}) => {
+    this.boxes = this.stage.boxes.map(({x, y, color}) => {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
       return box;
     });
   }
 
   update() {
-    const {player, camera, items, boxes, control} = this;
+    const {player, camera, control, stage, items, boxes, map} = this;
     player.move(control);
-    player.update();
+    player.update(stage.map);
     camera.update(player.x);
 
     items.forEach(item => {
@@ -71,6 +71,8 @@ class Game {
     boxes.forEach(box => {
       box.update(colorObj, control)
     });
+
+    map.update(player)
   }
 
   render() {

@@ -1,7 +1,8 @@
-import { BOX_SIZE } from "../constant/map";
+import { BOX_SIZE, BLOCK_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 
+let xCollision = true;
 class Box extends Item{
   constructor(x, y, color, ctx, player) {
     super(x, y, color, ctx, player);
@@ -15,20 +16,47 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor, control) {
+  update(backgroundColor) {
     const {x, y, player, color} = this;
-    // collision
-    if (x < player.x + PLAYER_WIDTH
-      && x + BOX_SIZE > player.x
-      && y < player.y + PLAYER_HEIGHT
-      && y + BOX_SIZE > player.y
-      && (color !== backgroundColor && !this.checkInit(backgroundColor))) {
-        if (true) { // TOBE: when hold state is true
-          if(control.left) this.x = player.x - BOX_SIZE
-          else if (control.right) this.x = player.x + PLAYER_WIDTH 
-          player.speedX = 0;
-        }
+
+    if (color !== backgroundColor && !this.checkInit(backgroundColor)) {
+      // left collision
+      if (player.x < x  && x < player.x + PLAYER_WIDTH
+        && y < player.y + PLAYER_HEIGHT
+        && y + BOX_SIZE > player.y
+        && xCollision) {
+        player.x = x - PLAYER_WIDTH;
       }
+  
+      // right collision
+      else if (player.x + PLAYER_WIDTH > x + BOX_SIZE && x + BOX_SIZE > player.x
+        && y < player.y + PLAYER_HEIGHT
+        && y + BOX_SIZE > player.y
+        && xCollision) {
+        player.x = x + BOX_SIZE
+      }
+
+      // top collision
+      else if (x < player.x + PLAYER_WIDTH
+          && x + BOX_SIZE > player.x
+        && player.y < y && y < player.y + PLAYER_HEIGHT) {
+        xCollision = false;
+        player.y = y - PLAYER_HEIGHT;
+        player.jumping = false;
+      }
+
+      // bottom collision
+      else if (x < player.x + PLAYER_WIDTH
+        && x + BOX_SIZE > player.x
+        && y + BOX_SIZE > player.y
+        && player.y + PLAYER_HEIGHT > y + BOX_SIZE) {
+          xCollision = false;
+          player.y = y + BOX_SIZE;
+      }
+      else {
+        xCollision = true;
+      }
+    }
   }
 
   render(cx) {
