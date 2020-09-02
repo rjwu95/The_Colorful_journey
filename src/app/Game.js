@@ -81,6 +81,7 @@ class Game {
     if (this.portal.reach) {
       this.state = GAME_STATE.GAME_CLEAR;
       this.stageNum += 1;
+      hasBackgroundColor = false;
     }
   }
 
@@ -106,7 +107,6 @@ class Game {
       player.render(camera.cx, context);
       portal.render(camera.cx)
     } else if (state === GAME_STATE.GAME_CLEAR) {
-      hasBackgroundColor = false;
       colorObj.r = 0;
       colorObj.g = 0;
       colorObj.b = 0;
