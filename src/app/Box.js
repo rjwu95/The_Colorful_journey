@@ -16,7 +16,7 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor) {
+  update(backgroundColor, control) {
     const {x, y, player, color} = this;
 
     if (color !== backgroundColor && !this.checkInit(backgroundColor)) {

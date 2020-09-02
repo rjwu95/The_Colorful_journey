@@ -69,7 +69,7 @@ class Game {
     })
 
     boxes.forEach(box => {
-      box.update(colorObj)
+      box.update(colorObj, control)
     });
   }
 
