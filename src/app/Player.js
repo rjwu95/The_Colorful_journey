@@ -1,8 +1,7 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
-import { BLOCK_SIZE, MAP_WIDTH, TILE_MAP_WIDTH, BOX_SIZE } from '../constant/map';
+import { TILE_MAP_WIDTH } from '../constant/map';
 import {scaledMap} from '../utils/utils';
 
-let colIdx = 0;
 class Player {
   constructor(x, y) {
     this.speedX = 0;
