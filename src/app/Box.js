@@ -23,7 +23,7 @@ class Box extends Item{
       && y < player.y + PLAYER_HEIGHT
       && y + BOX_SIZE > player.y
       && (color !== backgroundColor && !this.checkInit(backgroundColor))) {
-        if (true) { // when hold state is true
+        if (true) { // TOBE: when hold state is true
           if(control.left) this.x = player.x - BOX_SIZE
           else if (control.right) this.x = player.x + PLAYER_WIDTH 
           player.speedX = 0;
