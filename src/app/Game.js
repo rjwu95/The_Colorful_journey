@@ -54,7 +54,7 @@ class Game {
   }
 
   update() {
-    const {player, camera, control, stage, items, boxes, portal} = this;
+    const {player, camera, control, stage, items, boxes, portal, map} = this;
     player.move(control);
     player.update(stage.map);
     camera.update(player.x);
@@ -72,8 +72,10 @@ class Game {
     })
 
     boxes.forEach(box => {
-      box.update(colorObj)
+      box.update(colorObj, control)
     });
+
+    map.update(player)
 
     // when player reach the portal
     if (this.portal.reach) {
