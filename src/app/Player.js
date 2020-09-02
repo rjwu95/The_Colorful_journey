@@ -62,7 +62,7 @@ class Player {
   die(stageNum) {
     const toStringedPoint = localStorage.getItem('savePoint')
     const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    for (const savePoint of level[stageNum].savePoints) {
+    for (const savePoint of level[0].savePoints) {
       if (
         ((currentSavePoint && savePoint.x > currentSavePoint.x) || (!currentSavePoint))
         && this.x > savePoint.x) {

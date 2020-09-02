@@ -6,6 +6,7 @@ import Item from './Item';
 import Box from './Box';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE, GAME_STATE} from '../constant/map';
 import {level} from '../constant/level';
+import Obstacle from './Obstacle';
 
 const colorObj = {r: 0, g: 0, b: 0};
 let hasBackgroundColor = false;
@@ -54,10 +55,14 @@ class Game {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
       return box;
     });
+    this.obstacles = stage.obstacles.map(({x, y, color}) => {
+      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
+      return obstacle;
+    });
   }
 
   update() {
-    const {player, camera, items, boxes, control} = this;
+    const {player, camera, items, boxes, control, obstacles} = this;
     player.move(control);
     player.update();
     camera.update(player.x);
@@ -77,10 +82,13 @@ class Game {
     boxes.forEach(box => {
       box.update(colorObj, control)
     });
+    obstacles.forEach(obstacle => {
+      obstacle.update(colorObj, control)
+    });
   }
 
   render() {
-    const {state, context, map, player, camera, items, boxes} = this;
+    const {state, context, map, player, camera, items, boxes, obstacles} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
     if(hasBackgroundColor) {
@@ -98,6 +106,9 @@ class Game {
       });
       boxes.forEach(box => {
         box.render(camera.cx)
+      });
+      obstacles.forEach(obstacle => {
+        obstacle.render(camera.cx)
       });
     }
     player.render(camera.cx, context);
