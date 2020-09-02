@@ -51,7 +51,7 @@ class Game {
   }
 
   update() {
-    const {player, camera, control, stage, items, boxes} = this;
+    const {player, camera, control, stage, items, boxes, map} = this;
     player.move(control);
     player.update(stage.map);
     camera.update(player.x);
@@ -71,6 +71,8 @@ class Game {
     boxes.forEach(box => {
       box.update(colorObj, control)
     });
+
+    map.update(player)
   }
 
   render() {

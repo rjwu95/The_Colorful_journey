@@ -16,7 +16,7 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor, control) {
+  update(backgroundColor) {
     const {x, y, player, color} = this;
 
     if (color !== backgroundColor && !this.checkInit(backgroundColor)) {
@@ -33,7 +33,6 @@ class Box extends Item{
         && y < player.y + PLAYER_HEIGHT
         && y + BOX_SIZE > player.y
         && xCollision) {
-
         player.x = x + BOX_SIZE
       }
 
