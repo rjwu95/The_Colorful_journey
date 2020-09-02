@@ -51,8 +51,8 @@ class Game {
   }
 
   update() {
-    const {player, camera, items, boxes} = this;
-    player.move(this.control);
+    const {player, camera, items, boxes, control} = this;
+    player.move(control);
     player.update();
     camera.update(player.x);
 
@@ -69,7 +69,7 @@ class Game {
     })
 
     boxes.forEach(box => {
-      box.update(colorObj)
+      box.update(colorObj, control)
     });
   }
 

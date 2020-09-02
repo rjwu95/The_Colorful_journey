@@ -15,7 +15,7 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor) {
+  update(backgroundColor, control) {
     const {x, y, player, color} = this;
     // collision
     if (x < player.x + PLAYER_WIDTH
@@ -23,8 +23,11 @@ class Box extends Item{
       && y < player.y + PLAYER_HEIGHT
       && y + BOX_SIZE > player.y
       && (color !== backgroundColor && !this.checkInit(backgroundColor))) {
-        player.x = x + BOX_SIZE
-        player.speedX = 0;
+        if (true) { // TOBE: when hold state is true
+          if(control.left) this.x = player.x - BOX_SIZE
+          else if (control.right) this.x = player.x + PLAYER_WIDTH 
+          player.speedX = 0;
+        }
       }
   }
 
