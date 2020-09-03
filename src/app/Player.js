@@ -1,7 +1,9 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
-import { BLOCK_SIZE, MAP_WIDTH } from '../constant/map';
 import { level } from '../constant/level';
+import { TILE_MAP_WIDTH } from '../constant/map';
+import {scaledMap} from '../utils/utils';
 
+let xCollision = false;
 class Player {
   constructor(x, y) {
     this.speedX = 0;
@@ -22,32 +24,29 @@ class Player {
     if (control.right) {
       this.speedX += HORIZONTAL_ACCELERATION;
     }
-    this.speedY += GRAVITY; // gravity
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.speedX *= FRICTION_RATIO; // friction
-    this.speedY *= FRICTION_RATIO; // friction
   }
 
-  update() {
-    // if player is falling below floor line
-    if (this.y > 26 * BLOCK_SIZE - PLAYER_HEIGHT) {
-      this.stop(26 * BLOCK_SIZE - PLAYER_HEIGHT)
-    }
+  update(map) {
 
     // if player go out the map
     if (this.x < 0) {
       this.x = 0;
     }
-
-    if (this.x + PLAYER_WIDTH> MAP_WIDTH * 2) {
-      this.x = MAP_WIDTH * 2 - PLAYER_WIDTH;
+    
+    if (this.x + PLAYER_WIDTH> TILE_MAP_WIDTH) {
+      this.x = TILE_MAP_WIDTH - PLAYER_WIDTH;
     }
+
+    this.x += this.speedX;
+    this.y += this.speedY;
+
+    this.speedY += GRAVITY; // gravity
+    this.speedX *= FRICTION_RATIO; // friction
+    this.speedY *= FRICTION_RATIO; // friction
   }
 
-  stop(dy) {
+  stop() {
     this.jumping = false;
-    this.y = dy;
     this.speedY = 0;
   }
 
