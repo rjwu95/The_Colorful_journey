@@ -20,12 +20,12 @@ class Portal extends Item{
       }
   }
 
-  render(cx) {
+  render(cx, cy) {
     const {ctx, x, y, color} = this;
 
     if (this.show) {
       ctx.fillStyle = color;
-      ctx.fillRect(x - cx, y, BLOCK_SIZE * 2, BLOCK_SIZE * 2);
+      ctx.fillRect(x - cx, y - cy, BLOCK_SIZE * 2, BLOCK_SIZE * 2);
     }
   }
 }

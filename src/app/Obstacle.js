@@ -11,18 +11,18 @@ class Obstacle extends Item{
     const {x, y, player} = this;
     // collision
     if (x < player.x + PLAYER_WIDTH
-      && x + BOX_SIZE > player.x
+      && x + 100 > player.x
       && y < player.y + PLAYER_HEIGHT
-      && y + BOX_SIZE > player.y) {
+      && y + 100 > player.y) {
         player.die()
       }
   }
 
-  render(cx) {
+  render(cx, cy) {
     const {ctx, x, y, color} = this;
 
     ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    ctx.fillRect(x - cx, y, BOX_SIZE, BOX_SIZE);
+    ctx.fillRect(x - cx, y - cy, 100, 100);
   }
 }
 

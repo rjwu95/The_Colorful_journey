@@ -16,7 +16,7 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor, control) {
+  update(backgroundColor) {
     const {x, y, player, color} = this;
 
     if (color !== backgroundColor && !this.checkInit(backgroundColor)) {
@@ -59,12 +59,12 @@ class Box extends Item{
     }
   }
 
-  render(cx) {
+  render(cx, cy) {
     const {ctx, x, y, color} = this;
 
     if (this.show) {
       ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-      ctx.fillRect(x - cx, y, BOX_SIZE, BOX_SIZE);
+      ctx.fillRect(x - cx, y - cy, BOX_SIZE, BOX_SIZE);
     }
   }
 }

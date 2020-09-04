@@ -1,5 +1,5 @@
 import {scaledMap} from '../utils/utils';
-import {TILE_MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
+import {TILE_MAP_WIDTH, MAP_HEIGHT, TILE_MAP_HEIGHT} from '../constant/map';
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player';
 
 // The map tile buffer canvas' context
@@ -11,7 +11,7 @@ class GameMap {
   constructor(context) {
     this.context = context;
     mapBuffer.canvas.width = TILE_MAP_WIDTH;
-    mapBuffer.canvas.height = MAP_HEIGHT;
+    mapBuffer.canvas.height = TILE_MAP_HEIGHT;
   }
 
   load(map) {
@@ -70,8 +70,8 @@ class GameMap {
     });
   }
 
-  render(cx) {
-    this.context.drawImage(mapBuffer.canvas, -cx, 0);
+  render(cx, cy) {
+    this.context.drawImage(mapBuffer.canvas, -cx, -cy);
   }
 }
 

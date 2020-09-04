@@ -55,8 +55,8 @@ class Game {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return box;
     });
-    this.obstacles = stage.obstacles.map(({x, y, color}) => {
-      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
+    this.obstacles = this.stage.obstacles.map(({x, y, color}) => {
+      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return obstacle;
     });
   }
@@ -65,7 +65,7 @@ class Game {
     const {player, camera, control, stage, items, boxes, map, obstacles, portal} = this;
     player.move(control);
     player.update(stage.map);
-    camera.update(player.x);
+    camera.update(player.x, player.y);
     portal.update();
     items.forEach(item => {
       item.update();
@@ -110,18 +110,18 @@ class Game {
       // Todo: renderReady
     } else if (state === GAME_STATE.GAME_PLAYING) {
       this.update();
-      map.render(camera.cx);
+      map.render(camera.cx, camera.cy);
       items.forEach(item => {
-        item.render(camera.cx)
+        item.render(camera.cx,camera.cy)
       });
       boxes.forEach(box => {
-        box.render(camera.cx)
+        box.render(camera.cx, camera.cy)
       });
       obstacles.forEach(obstacle => {
-        obstacle.render(camera.cx)
+        obstacle.render(camera.cx, camera.cy)
       });
-      player.render(camera.cx, context);
-      portal.render(camera.cx)
+      player.render(camera.cx,  camera.cy, context);
+      portal.render(camera.cx,  camera.cy)
     } else if (state === GAME_STATE.GAME_CLEAR) {
       colorObj.r = 0;
       colorObj.g = 0;

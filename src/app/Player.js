@@ -50,11 +50,11 @@ class Player {
     this.speedY = 0;
   }
 
-  render(cx, ctx) {
+  render(cx, cy, ctx) {
     const {x, y} = this;
     ctx.save();
     ctx.fillStyle = PLAYER_COLOR;
-    ctx.fillRect(x - cx, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT);
     ctx.restore();
   }
 
