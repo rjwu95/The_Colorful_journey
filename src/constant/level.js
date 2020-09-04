@@ -20,6 +20,9 @@ export const level = [
       {x: 500, y: 26},
       {x: 1000, y: 26},
     ],
+    obstacles: [
+      {x: COLUMNS * 2 - 30, y: 21, color: {r: 100, g: 240, b: 90}}
+    ],
     portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'}
   },
   {

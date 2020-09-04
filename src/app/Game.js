@@ -6,6 +6,7 @@ import Item from './Item';
 import Box from './Box';
 import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE, GAME_STATE} from '../constant/map';
 import {level} from '../constant/level';
+import Obstacle from './Obstacle';
 import Portal from './Portal';
 
 const colorObj = {r: 0, g: 0, b: 0};
@@ -25,12 +26,8 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    if (currentSavePoint) {
-      this.player = new Player(currentSavePoint.x, currentSavePoint.y);
-    } else {
-      this.player = new Player(20, 0);
-    }
+    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint) || {x: 20, y: 0}
+    this.player = new Player(currentSavePoint.x, currentSavePoint.y);
     this.control = new Control()
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
@@ -58,10 +55,14 @@ class Game {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return box;
     });
+    this.obstacles = stage.obstacles.map(({x, y, color}) => {
+      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
+      return obstacle;
+    });
   }
 
   update() {
-    const {player, camera, control, stage, items, boxes, portal, map} = this;
+    const {player, camera, control, stage, items, boxes, map, obstacles, portal} = this;
     player.move(control);
     player.update(stage.map);
     camera.update(player.x);
@@ -81,6 +82,10 @@ class Game {
     boxes.forEach(box => {
       box.update(colorObj, control)
     });
+    
+    obstacles.forEach(obstacle => {
+      obstacle.update(colorObj, control)
+    });
 
     map.update(player)
 
@@ -93,7 +98,8 @@ class Game {
   }
 
   render() {
-    const {state, context, map, player, camera, items, boxes, portal} = this;
+    const {state, context, map, player, camera, items, boxes, obstacles, portal} = this;
+
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
     if(hasBackgroundColor) {
       context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
@@ -110,6 +116,9 @@ class Game {
       });
       boxes.forEach(box => {
         box.render(camera.cx)
+      });
+      obstacles.forEach(obstacle => {
+        obstacle.render(camera.cx)
       });
       player.render(camera.cx, context);
       portal.render(camera.cx)
