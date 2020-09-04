@@ -15,8 +15,9 @@ class GameMap {
   }
 
   load(map) {
-    this.scaledMapData = scaledMap(map);
-    this.scaledMapData.forEach(({x, y, w, h}) => {
+      this.scaledMapData = scaledMap(map);
+      mapBuffer.clearRect(0, 0, TILE_MAP_WIDTH, MAP_HEIGHT)
+      this.scaledMapData.forEach(({x, y, w, h}) => {
       mapBuffer.fillRect(x, y, w, h);
     });
   }
