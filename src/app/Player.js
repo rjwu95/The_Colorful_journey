@@ -1,4 +1,5 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
+import { level } from '../constant/level';
 import { TILE_MAP_WIDTH } from '../constant/map';
 import {scaledMap} from '../utils/utils';
 
@@ -56,6 +57,36 @@ class Player {
     ctx.fillRect(x - cx, y, PLAYER_WIDTH, PLAYER_HEIGHT);
     ctx.restore();
   }
+
+  die(stageNum) {
+    const toStringedPoint = localStorage.getItem('savePoint')
+    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
+    for (const savePoint of level[stageNum].savePoints) {
+      if (
+        ((currentSavePoint && savePoint.x > currentSavePoint.x) || (!currentSavePoint))
+        && this.x > savePoint.x) {
+        this.saveNewPoint(savePoint);
+      }
+    }
+    this.revive()
+  }
+
+  saveNewPoint(savePoint) {
+    localStorage.setItem('savePoint', JSON.stringify(savePoint))
+  }
+
+  revive() {
+    const toStringedPoint = localStorage.getItem('savePoint')
+    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
+    if (currentSavePoint) {
+      this.x = currentSavePoint.x
+      this.y = currentSavePoint.y
+    } else {
+      this.x = 0
+      this.y = 0
+    }
+  }
+  
 }
 
 export default Player;

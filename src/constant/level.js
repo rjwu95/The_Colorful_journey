@@ -15,6 +15,11 @@ export const level = [
     boxes: [
       {x: COLUMNS * 2 - 16, y: 20, color: {r: 113, g: 107, b: 107}}
     ],
+    savePoints: [
+      {x: 100, y: 26},
+      {x: 500, y: 26},
+      {x: 1000, y: 26},
+    ],
     portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'}
   },
   {
