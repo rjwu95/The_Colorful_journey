@@ -104,6 +104,9 @@ class Game {
     }
     player.render(camera.cx, context);
   }
+  clearLevel() {
+    this.saveNewPoint({x: 0, y: 0})
+  }
 }
 
 export default Game;
