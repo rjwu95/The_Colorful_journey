@@ -26,12 +26,8 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    if (currentSavePoint) {
-      this.player = new Player(currentSavePoint.x, currentSavePoint.y);
-    } else {
-      this.player = new Player(20, 0);
-    }
+    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint) || {x: 20, y: 0}
+    this.player = new Player(currentSavePoint.x, currentSavePoint.y);
     this.control = new Control()
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
