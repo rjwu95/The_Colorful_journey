@@ -6,7 +6,7 @@ export const level = [
       {x: 0, y: 15, w: 6, h: 17},
       {x: 6, y: 20, w: 7, h: 12},
       {x: 40, y: 24, w: 6, h: 2},
-      {x: COLUMNS * 2 - 10, y: 12, w: 10, h: 2},
+      {x: COLUMNS * 2 - 10, y: 13, w: 10, h: 2},
       {x: 13, y: 26, w: COLUMNS * 2, h: 6}
     ],
     items: [
@@ -19,6 +19,15 @@ export const level = [
       {x: 100, y: 26},
       {x: 500, y: 26},
       {x: 1000, y: 26},
-    ]
+    ],
+    portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'}
+  },
+  {
+    map: [
+    {x: 0, y: 26, w: COLUMNS * 2, h: 6},
+    ],
+    items: [],
+    boxes: [],
+    portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'}
   }
 ];
