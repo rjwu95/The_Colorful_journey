@@ -103,7 +103,7 @@ class Game {
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
     if(hasBackgroundColor) {
       context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
-      context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
+      context.fillRect(0, 0, MAP_WIDTH, MAP_HEIGHT)
     }
 
     if (state === GAME_STATE.GAME_READY) {
@@ -131,6 +131,7 @@ class Game {
     }
 
   }
+
   clearLevel() {
     this.saveNewPoint({x: 0, y: 0})
   }

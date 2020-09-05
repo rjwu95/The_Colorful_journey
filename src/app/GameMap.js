@@ -5,7 +5,7 @@ import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player';
 // The map tile buffer canvas' context
 const mapBuffer = document.createElement('canvas').getContext('2d');
 
-let xCollision = Array(5).fill(true);
+let xCollision = Array(10).fill(true);
 
 class GameMap {
   constructor(context) {
@@ -26,8 +26,17 @@ class GameMap {
     this.scaledMapData.forEach((el, idx) => {
       const{x, y, w, h} = el;
 
+      if (x < player.x + PLAYER_WIDTH
+        && x + w > player.x
+      && player.y < y && y < player.y + PLAYER_HEIGHT) {
+        // console.log(idx, '위')
+      xCollision[idx] = false;
+      player.y = y - PLAYER_HEIGHT;
+      player.jumping = false;
+    }
+
       // left collision
-      if (player.x < x  && x < player.x + PLAYER_WIDTH
+     else if (player.x < x  && x < player.x + PLAYER_WIDTH
         && y < player.y + PLAYER_HEIGHT
         && y + h > player.y
         && xCollision[idx]) {
@@ -46,14 +55,14 @@ class GameMap {
       }
 
       // top collision
-      else if (x < player.x + PLAYER_WIDTH
-          && x + w > player.x
-        && player.y < y && y < player.y + PLAYER_HEIGHT) {
-          // console.log(idx, '위')
-        xCollision[idx] = false;
-        player.y = y - PLAYER_HEIGHT;
-        player.jumping = false;
-      }
+      // else if (x < player.x + PLAYER_WIDTH
+      //     && x + w > player.x
+      //   && player.y < y && y < player.y + PLAYER_HEIGHT) {
+      //     // console.log(idx, '위')
+      //   xCollision[idx] = false;
+      //   player.y = y - PLAYER_HEIGHT;
+      //   player.jumping = false;
+      // }
 
       // bottom collision
       else if (x < player.x + PLAYER_WIDTH
