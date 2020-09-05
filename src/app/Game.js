@@ -55,8 +55,8 @@ class Game {
       const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return box;
     });
-    this.obstacles = stage.obstacles.map(({x, y, color}) => {
-      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, player);
+    this.obstacles = this.stage.obstacles.map(({x, y, color}) => {
+      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
       return obstacle;
     });
   }
