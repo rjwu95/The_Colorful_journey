@@ -2,6 +2,8 @@ import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, H
 import { level } from '../constant/level';
 import { TILE_MAP_WIDTH } from '../constant/map';
 import {scaledMap} from '../utils/utils';
+import soundEffect from '../utils/soundEffect';
+import { jumpSound } from '../constant/sounds';
 
 let xCollision = false;
 class Player {
@@ -17,6 +19,7 @@ class Player {
     if (control.jump && this.jumping === false) {
       this.speedY -= JUMP_ACCELERATION;
       this.jumping = true;
+      soundEffect(jumpSound)
     }
     if (control.left) {
       this.speedX -= HORIZONTAL_ACCELERATION;
