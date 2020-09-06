@@ -3,7 +3,6 @@ import { level } from '../constant/level';
 import { TILE_MAP_WIDTH } from '../constant/map';
 import {scaledMap} from '../utils/utils';
 
-let xCollision = false;
 class Player {
   constructor(x, y) {
     this.speedX = 0;
@@ -36,6 +35,7 @@ class Player {
     
     if (this.x + PLAYER_WIDTH> TILE_MAP_WIDTH) {
       this.x = TILE_MAP_WIDTH - PLAYER_WIDTH;
+      this.speedX = 0;
     }
 
     this.x += this.speedX;

@@ -1,4 +1,4 @@
-import {COLUMNS} from './map';
+import {COLUMNS, ROWS} from './map';
 
 export const level = [
   {
@@ -27,10 +27,22 @@ export const level = [
   },
   {
     map: [
-    {x: 0, y: 26, w: COLUMNS * 2, h: 6},
+      {x: 0, y: 0, w: 2, h: ROWS * 2},
+      {x: 5, y: 48, w: 4, h:4},
+      {x: 9, y: 44, w: 4, h:8},
+      {x: 13, y: 40, w: 4, h:12},
+      {x: 17, y: 36, w: 4, h:16},
+      {x: 21, y: 32, w: 4, h:20},
+      {x: 25, y: 28, w: 4, h:24},
+      {x: 29, y: 24, w: 4, h:28},
+      {x: 33, y: 20, w: 4, h:32},
+      {x: 0, y: 52, w:  COLUMNS * 2, h: 6},
+
     ],
     items: [],
     boxes: [],
+    savePoints: [],
+    obstacles: [],
     portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'}
   }
 ];
