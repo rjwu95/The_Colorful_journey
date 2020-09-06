@@ -31,6 +31,7 @@ class Player {
     // if player go out the map
     if (this.x < 0) {
       this.x = 0;
+      this.speedX = 0;
     }
     
     if (this.x + PLAYER_WIDTH> TILE_MAP_WIDTH) {

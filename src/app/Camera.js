@@ -12,7 +12,7 @@ class Camera {
     const maxCameraPosY = TILE_MAP_HEIGHT - MAP_HEIGHT;
 
     this.cx = playerX - MAP_WIDTH/3;
-    this.cy = playerY - MAP_HEIGHT/3;
+    this.cy = playerY - MAP_HEIGHT * 0.8;
 
     // camera min position
     if (this.cx < minCameraPosX) {
