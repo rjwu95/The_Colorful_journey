@@ -1,9 +1,6 @@
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
+import {OBSTACLE, OBSTACLE_INTERVAL, SIDE} from '../constant/obstacle';
 import Item from "./Item";
-
-const obstacle = 4;
-const interval = 200;
-const side = 100;
 
 class Obstacle extends Item{
   constructor(x, y, color, ctx, player) {
@@ -13,10 +10,10 @@ class Obstacle extends Item{
   update() {
     const {x, y, player} = this;
     // collision
-    if (x - side < player.x + PLAYER_WIDTH
-      && x + side + interval * (obstacle - 1) > player.x
+    if (x - SIDE < player.x + PLAYER_WIDTH
+      && x + SIDE + OBSTACLE_INTERVAL * (OBSTACLE - 1) > player.x
       && y < player.y + PLAYER_HEIGHT
-      && y + interval > player.y) {
+      && y + OBSTACLE_INTERVAL > player.y) {
         player.die();
       }
   }
@@ -27,10 +24,10 @@ class Obstacle extends Item{
     ctx.beginPath();
     ctx.fillStyle = 'black';
 
-    for(let i=0; i< obstacle; i++) {
-      ctx.moveTo(x - cx + interval * i, y);
-      ctx.lineTo(x - cx - side + interval * i, y + interval);
-      ctx.lineTo(x - cx + side + interval * i, y + interval);
+    for(let i=0; i< OBSTACLE; i++) {
+      ctx.moveTo(x - cx + OBSTACLE_INTERVAL * i, y);
+      ctx.lineTo(x - cx - SIDE + OBSTACLE_INTERVAL * i, y + OBSTACLE_INTERVAL);
+      ctx.lineTo(x - cx + SIDE + OBSTACLE_INTERVAL * i, y + OBSTACLE_INTERVAL);
       ctx.fill();
     }
   }
