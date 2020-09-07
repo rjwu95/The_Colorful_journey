@@ -1,5 +1,5 @@
 import {scaledMap} from '../utils/utils';
-import {TILE_MAP_WIDTH, TILE_MAP_HEIGHT} from '../constant/map';
+import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player';
 
 // The map tile buffer canvas' context
@@ -11,14 +11,18 @@ let xCollision = Array(10).fill(true);
 class GameMap {
   constructor(context) {
     this.context = context;
-    mapBuffer.canvas.width = TILE_MAP_WIDTH;
-    mapBuffer.canvas.height = TILE_MAP_HEIGHT;
   }
+  
+  load(buffer, map) {
+      const TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
+      const TILE_MAP_HEIGHT = MAP_WIDTH * buffer.height;
 
-  load(map) {
+      mapBuffer.canvas.width = TILE_MAP_WIDTH;
+      mapBuffer.canvas.height = TILE_MAP_HEIGHT;
       this.scaledMapData = scaledMap(map);
       mapBuffer.clearRect(0, 0, TILE_MAP_WIDTH, TILE_MAP_HEIGHT)
-      this.scaledMapData.forEach(({x, y, w, h}) => {
+      this.scaledMapData.forEach(({x, y, w, h, color = 'black'}) => {
+      mapBuffer.fillStyle = color;
       mapBuffer.fillRect(x, y, w, h);
     });
   }

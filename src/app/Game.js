@@ -4,7 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
 import Box from './Box';
-import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE} from '../constant/map';
+import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../constant/map';
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
@@ -26,8 +26,8 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint) || {x: 20, y: 0}
-    this.player = new Player(currentSavePoint.x, currentSavePoint.y);
+    // const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint) || {x: 20, y: 0}
+    // this.player = new Player(currentSavePoint.x, currentSavePoint.y);
     this.control = new Control()
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
@@ -36,27 +36,28 @@ class Game {
   }
 
   load(stageNum) {
-    const {map, control, context} = this;
+    const {map, control, context, camera} = this;
     this.stage = level[stageNum];
 
-    map.load(this.stage.map);
+    map.load(this.stage.buffer, this.stage.map);
     control.init();
+    camera.init(this.stage.buffer);
 
-    this.player = new Player(0, 0);
+    this.player = new Player(500, 0, this.stage.buffer);
 
     this.portal = new Portal(this.stage.portal, this.context, this.player);
   
     this.items = this.stage.items.map(({x, y, color}) => {
-      const item =  new Item(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
+      const item =  new Item(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, color, context, this.player);
       return item;
     });
 
     this.boxes = this.stage.boxes.map(({x, y, color}) => {
-      const box =  new Box(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
+      const box =  new Box(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, color, context, this.player);
       return box;
     });
     this.obstacles = this.stage.obstacles.map(({x, y, color}) => {
-      const obstacle =  new Obstacle(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
+      const obstacle =  new Obstacle(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, color, context, this.player);
       return obstacle;
     });
   }

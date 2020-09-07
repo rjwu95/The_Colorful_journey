@@ -1,5 +1,5 @@
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
-import {OBSTACLE, OBSTACLE_INTERVAL, SIDE} from '../constant/obstacle';
+import {OBSTACLE, OBSTACLE_INTERVAL, SIDE} from '../constant/map';
 import Item from "./Item";
 
 class Obstacle extends Item{
@@ -26,8 +26,8 @@ class Obstacle extends Item{
 
     for(let i=0; i< OBSTACLE; i++) {
       ctx.moveTo(x - cx + OBSTACLE_INTERVAL * i, y - cy);
-      ctx.lineTo(x - cx - SIDE + OBSTACLE_INTERVAL * i, y - cy + OBSTACLE_INTERVAL);
-      ctx.lineTo(x - cx + SIDE + OBSTACLE_INTERVAL * i, y - cy + OBSTACLE_INTERVAL);
+      ctx.lineTo(x - cx + SIDE + OBSTACLE_INTERVAL * i, y - cy - OBSTACLE_INTERVAL)
+      ctx.lineTo(x - cx + SIDE * 2 + OBSTACLE_INTERVAL * i, y - cy);
       ctx.fill();
     }
   }

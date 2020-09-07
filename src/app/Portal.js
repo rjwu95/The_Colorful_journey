@@ -1,11 +1,11 @@
-import { BLOCK_WIDTH } from "../constant/map";
+import { BLOCK_WIDTH, POTAL_WIDTH, POTAL_HEIGHT, BLOCK_HEIGHT } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 
 class Portal extends Item{
   constructor(info, ctx, player) {
     const{x, y, color} = info;
-    super(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, ctx, player);
+    super(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, color, ctx, player);
     this.reach = false;
   }
 
@@ -13,9 +13,9 @@ class Portal extends Item{
     const {x, y, player} = this;
     // collision
     if (x  < player.x + player.speedX + PLAYER_WIDTH
-      && x + BLOCK_WIDTH * 2 > player.x + player.speedX
+      && x + POTAL_WIDTH > player.x + player.speedX
       && y < player.y + PLAYER_HEIGHT + player.speedY
-      && y + BLOCK_WIDTH * 2 > player.y + player.speedY) {
+      && y + POTAL_HEIGHT > player.y + player.speedY) {
         this.reach = true;
       }
   }
@@ -25,7 +25,7 @@ class Portal extends Item{
 
     if (this.show) {
       ctx.fillStyle = color;
-      ctx.fillRect(x - cx, y - cy, BLOCK_WIDTH * 2, BLOCK_WIDTH * 2);
+      ctx.fillRect(x - cx, y - cy, POTAL_WIDTH, POTAL_HEIGHT);
     }
   }
 }

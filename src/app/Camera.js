@@ -1,7 +1,16 @@
-import {MAP_WIDTH, TILE_MAP_WIDTH, TILE_MAP_HEIGHT, MAP_HEIGHT} from '../constant/map'
+import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map'
+
+let TILE_MAP_WIDTH;
+let TILE_MAP_HEIGHT;
+
 class Camera {
   constructor() {
     this.cx = 0;
+  }
+
+  init(buffer) {
+    TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
+    TILE_MAP_HEIGHT = MAP_HEIGHT * buffer.height;
   }
 
   update(playerX, playerY) {
@@ -12,7 +21,8 @@ class Camera {
     const maxCameraPosY = TILE_MAP_HEIGHT - MAP_HEIGHT;
 
     this.cx = playerX - MAP_WIDTH/3;
-    this.cy = playerY - MAP_HEIGHT * 0.8;
+    this.cy = playerY - MAP_HEIGHT/3;
+
 
     // camera min position
     if (this.cx < minCameraPosX) {

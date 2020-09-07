@@ -1,15 +1,17 @@
-import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
+import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
 import { level } from '../constant/level';
-import { TILE_MAP_WIDTH } from '../constant/map';
-import {scaledMap} from '../utils/utils';
+import { MAP_WIDTH } from '../constant/map';
+
+let TILE_MAP_WIDTH;
 
 class Player {
-  constructor(x, y) {
+  constructor(x, y, buffer) {
     this.speedX = 0;
     this.speedY = 0;
     this.x = x;
     this.y = y;
     this.jumping = false
+    TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
   }
 
   move(control) {
@@ -26,7 +28,6 @@ class Player {
   }
 
   update(map) {
-
     // if player go out the map
     if (this.x < 0) {
       this.x = 0;

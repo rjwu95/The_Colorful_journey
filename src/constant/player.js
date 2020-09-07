@@ -1,6 +1,6 @@
-import {MAP_WIDTH} from './map';
+import {MAP_WIDTH, MAP_HEIGHT} from './map';
 export const PLAYER_WIDTH = MAP_WIDTH / 35
-export const PLAYER_HEIGHT = MAP_WIDTH / 35
+export const PLAYER_HEIGHT = MAP_HEIGHT / 20
 export const PLAYER_COLOR = "red"
 export const FRICTION_RATIO = 0.9
 export const HORIZONTAL_ACCELERATION = PLAYER_WIDTH / 74;
