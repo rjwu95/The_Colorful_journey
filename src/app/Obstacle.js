@@ -1,5 +1,5 @@
-import { BOX_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
+import {OBSTACLE, OBSTACLE_INTERVAL, SIDE} from '../constant/obstacle';
 import Item from "./Item";
 
 class Obstacle extends Item{
@@ -10,19 +10,26 @@ class Obstacle extends Item{
   update() {
     const {x, y, player} = this;
     // collision
-    if (x < player.x + PLAYER_WIDTH
-      && x + BOX_SIZE > player.x
+    if (x - SIDE < player.x + PLAYER_WIDTH
+      && x + SIDE + OBSTACLE_INTERVAL * (OBSTACLE - 1) > player.x
       && y < player.y + PLAYER_HEIGHT
-      && y + BOX_SIZE > player.y) {
-        player.die()
+      && y + OBSTACLE_INTERVAL > player.y) {
+        player.die();
       }
   }
 
   render(cx) {
     const {ctx, x, y, color} = this;
 
-    ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-    ctx.fillRect(x - cx, y, BOX_SIZE, BOX_SIZE);
+    ctx.beginPath();
+    ctx.fillStyle = 'black';
+
+    for(let i=0; i< OBSTACLE; i++) {
+      ctx.moveTo(x - cx + OBSTACLE_INTERVAL * i, y);
+      ctx.lineTo(x - cx - SIDE + OBSTACLE_INTERVAL * i, y + OBSTACLE_INTERVAL);
+      ctx.lineTo(x - cx + SIDE + OBSTACLE_INTERVAL * i, y + OBSTACLE_INTERVAL);
+      ctx.fill();
+    }
   }
 }
 
