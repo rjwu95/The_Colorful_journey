@@ -27,7 +27,7 @@ export const level = [
   },
   {
     map: [
-      {x: 0, y: 0, w: 2, h: ROWS * 2},
+      {x: 0, y: 0, w: 6, h: ROWS * 2},
       {x: 5, y: 48, w: 4, h:4},
       {x: 9, y: 44, w: 4, h:8},
       {x: 13, y: 40, w: 4, h:12},

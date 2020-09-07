@@ -1,4 +1,4 @@
-import { BOX_SIZE, BLOCK_SIZE } from "../constant/map";
+import { BOX_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 

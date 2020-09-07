@@ -4,7 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
 import Box from './Box';
-import {MAP_WIDTH, MAP_HEIGHT, BLOCK_SIZE, GAME_STATE} from '../constant/map';
+import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE} from '../constant/map';
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
@@ -47,16 +47,16 @@ class Game {
     this.portal = new Portal(this.stage.portal, this.context, this.player);
   
     this.items = this.stage.items.map(({x, y, color}) => {
-      const item =  new Item(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
+      const item =  new Item(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
       return item;
     });
 
     this.boxes = this.stage.boxes.map(({x, y, color}) => {
-      const box =  new Box(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
+      const box =  new Box(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
       return box;
     });
     this.obstacles = this.stage.obstacles.map(({x, y, color}) => {
-      const obstacle =  new Obstacle(x * BLOCK_SIZE, y * BLOCK_SIZE, color, context, this.player);
+      const obstacle =  new Obstacle(x * BLOCK_WIDTH, y * BLOCK_WIDTH, color, context, this.player);
       return obstacle;
     });
   }
