@@ -1,5 +1,5 @@
-import {BLOCK_SIZE} from '../constant/map';
+import {BLOCK_WIDTH, BLOCK_HEIGHT} from '../constant/map';
 
 export const scaledMap = (mapArr) => {
-  return mapArr.map(({x, y, w, h}) => ({x: x * BLOCK_SIZE, y: y * BLOCK_SIZE, w: w * BLOCK_SIZE, h: h * BLOCK_SIZE}));
+  return mapArr.map(({x, y, w, h, color}) => ({x: x * BLOCK_WIDTH, y: y * BLOCK_HEIGHT, w: w * BLOCK_WIDTH, h: h * BLOCK_HEIGHT, color}));
 }
