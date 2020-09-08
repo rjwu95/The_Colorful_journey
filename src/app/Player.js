@@ -2,6 +2,7 @@ import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, H
 import { level } from '../constant/level';
 import { TILE_MAP_WIDTH } from '../constant/map';
 import {scaledMap} from '../utils/utils';
+import { jumpSound, dieSound } from '../constant/sound';
 
 let xCollision = false;
 class Player {
@@ -15,6 +16,10 @@ class Player {
 
   move(control) {
     if (control.jump && this.jumping === false) {
+      const soundURL = jsfxr(jumpSound); 
+      const player = new Audio();
+      player.src = soundURL;
+      player.play();
       this.speedY -= JUMP_ACCELERATION;
       this.jumping = true;
     }
@@ -59,6 +64,10 @@ class Player {
   }
 
   die(stageNum) {
+    const soundURL = jsfxr(dieSound); 
+    const player = new Audio();
+    player.src = soundURL;
+    player.play();
     const toStringedPoint = localStorage.getItem('savePoint')
     const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
     for (const savePoint of level[stageNum || 0].savePoints) { // TOBE: remove || 0 that is preventing error
