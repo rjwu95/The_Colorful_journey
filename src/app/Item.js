@@ -30,11 +30,11 @@ class Item {
       }
   }
 
-  render(cx) {
+  render(cx, cy) {
     const {ctx, x, y, color} = this;
       if (this.show) {
         ctx.beginPath();
-        ctx.arc(x - cx, y, ITEM_SIZE, 0, 2 * Math.PI);
+        ctx.arc(x - cx, y - cy, ITEM_SIZE, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
         ctx.fill();

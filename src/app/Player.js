@@ -1,17 +1,18 @@
-import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, MAX_SPEED, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
+import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
 import { level } from '../constant/level';
-import { TILE_MAP_WIDTH } from '../constant/map';
-import {scaledMap} from '../utils/utils';
 import { jumpSound, dieSound } from '../constant/sound';
+import { MAP_WIDTH } from '../constant/map';
 
-let xCollision = false;
+let TILE_MAP_WIDTH;
+
 class Player {
-  constructor(x, y) {
+  constructor(x, y, buffer) {
     this.speedX = 0;
     this.speedY = 0;
     this.x = x;
     this.y = y;
     this.jumping = false
+    TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
   }
 
   move(control) {
@@ -32,14 +33,15 @@ class Player {
   }
 
   update(map) {
-
     // if player go out the map
     if (this.x < 0) {
       this.x = 0;
+      this.speedX = 0;
     }
     
     if (this.x + PLAYER_WIDTH> TILE_MAP_WIDTH) {
       this.x = TILE_MAP_WIDTH - PLAYER_WIDTH;
+      this.speedX = 0;
     }
 
     this.x += this.speedX;
@@ -55,11 +57,11 @@ class Player {
     this.speedY = 0;
   }
 
-  render(cx, ctx) {
+  render(cx, cy, ctx) {
     const {x, y} = this;
     ctx.save();
     ctx.fillStyle = PLAYER_COLOR;
-    ctx.fillRect(x - cx, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT);
     ctx.restore();
   }
 

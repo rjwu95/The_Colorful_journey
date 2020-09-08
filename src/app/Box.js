@@ -1,4 +1,4 @@
-import { BOX_SIZE, BLOCK_SIZE } from "../constant/map";
+import { BOX_WIDTH, BOX_HEIGHT } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 
@@ -16,29 +16,29 @@ class Box extends Item{
     )
   }
 
-  update(backgroundColor, control) {
+  update(backgroundColor) {
     const {x, y, player, color} = this;
 
     if (color !== backgroundColor && !this.checkInit(backgroundColor)) {
       // left collision
       if (player.x < x  && x < player.x + PLAYER_WIDTH
         && y < player.y + PLAYER_HEIGHT
-        && y + BOX_SIZE > player.y
+        && y + BOX_HEIGHT > player.y
         && xCollision) {
           this.x = player.x + PLAYER_WIDTH
       }
   
       // right collision
-      else if (player.x + PLAYER_WIDTH > x + BOX_SIZE && x + BOX_SIZE > player.x
+      else if (player.x + PLAYER_WIDTH > x + BOX_WIDTH && x + BOX_WIDTH > player.x
         && y < player.y + PLAYER_HEIGHT
-        && y + BOX_SIZE > player.y
+        && y + BOX_HEIGHT > player.y
         && xCollision) {
-          this.x = player.x - BOX_SIZE
+          this.x = player.x - BOX_WIDTH
       }
 
       // top collision
       else if (x < player.x + PLAYER_WIDTH
-          && x + BOX_SIZE > player.x
+          && x + BOX_WIDTH > player.x
         && player.y < y && y < player.y + PLAYER_HEIGHT) {
         xCollision = false;
         player.y = y - PLAYER_HEIGHT;
@@ -47,11 +47,11 @@ class Box extends Item{
 
       // bottom collision
       else if (x < player.x + PLAYER_WIDTH
-        && x + BOX_SIZE > player.x
-        && y + BOX_SIZE > player.y
-        && player.y + PLAYER_HEIGHT > y + BOX_SIZE) {
+        && x + BOX_WIDTH > player.x
+        && y + BOX_HEIGHT > player.y
+        && player.y + PLAYER_HEIGHT > y + BOX_HEIGHT) {
           xCollision = false;
-          player.y = y + BOX_SIZE;
+          player.y = y + BOX_HEIGHT;
       }
       else {
         xCollision = true;
@@ -59,12 +59,12 @@ class Box extends Item{
     }
   }
 
-  render(cx) {
+  render(cx, cy) {
     const {ctx, x, y, color} = this;
 
     if (this.show) {
       ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-      ctx.fillRect(x - cx, y, BOX_SIZE, BOX_SIZE);
+      ctx.fillRect(x - cx, y - cy, BOX_WIDTH, BOX_HEIGHT);
     }
   }
 }
