@@ -8,9 +8,9 @@ import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../c
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
+import {hasBackgroundColor} from '../utils/utils'
 
 const colorObj = {r: 0, g: 0, b: 0};
-let hasBackgroundColor = false;
 
 class Game {
   init() {
@@ -72,7 +72,6 @@ class Game {
       item.update();
 
       if (!item.show && item.changeBackground) {
-        hasBackgroundColor = true;
         colorObj.r += item.color.r;
         colorObj.g += item.color.g;
         colorObj.b += item.color.b;
@@ -88,13 +87,12 @@ class Game {
       obstacle.update(colorObj, control)
     });
 
-    map.update(player)
+    map.update(player, colorObj)
 
     // when player reach the portal
     if (this.portal.reach) {
       this.state = GAME_STATE.GAME_CLEAR;
       this.stageNum += 1;
-      hasBackgroundColor = false;
     }
   }
 
@@ -102,7 +100,7 @@ class Game {
     const {state, context, map, player, camera, items, boxes, obstacles, portal} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-    if(hasBackgroundColor) {
+    if(hasBackgroundColor(colorObj)) {
       context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
       context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
     }
