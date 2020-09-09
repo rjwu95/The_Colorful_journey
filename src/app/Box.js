@@ -1,6 +1,7 @@
 import { BOX_WIDTH, BOX_HEIGHT } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
+import {checkInitailBackground} from '../utils/utils'
 
 let xCollision = true;
 class Box extends Item{
@@ -8,18 +9,10 @@ class Box extends Item{
     super(x, y, color, ctx, player);
   }
 
-  checkInit(backgroundColor) {
-    return (
-      backgroundColor.r === 0
-      && backgroundColor.g === 0
-      && backgroundColor.b === 0
-    )
-  }
-
   update(backgroundColor) {
     const {x, y, player, color} = this;
 
-    if (color !== backgroundColor && !this.checkInit(backgroundColor)) {
+    if (color !== backgroundColor && !checkInitailBackground(backgroundColor)) {
       // left collision
       if (player.x < x  && x < player.x + PLAYER_WIDTH
         && y < player.y + PLAYER_HEIGHT
