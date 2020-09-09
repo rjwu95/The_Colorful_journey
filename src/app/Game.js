@@ -8,6 +8,8 @@ import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../c
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
+import { clearSound } from '../constant/sound';
+
 
 const colorObj = {r: 0, g: 0, b: 0};
 let hasBackgroundColor = false;
@@ -124,6 +126,7 @@ class Game {
       player.render(camera.cx,  camera.cy, context);
       portal.render(camera.cx,  camera.cy)
     } else if (state === GAME_STATE.GAME_CLEAR) {
+      this.clearLevel()
       colorObj.r = 0;
       colorObj.g = 0;
       colorObj.b = 0;
@@ -133,6 +136,10 @@ class Game {
 
   }
   clearLevel() {
+    const soundURL = jsfxr(clearSound); 
+    const player = new Audio();
+    player.src = soundURL;
+    player.play();
     this.saveNewPoint({x: 0, y: 0})
   }
 }
