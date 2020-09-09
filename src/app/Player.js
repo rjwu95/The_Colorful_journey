@@ -1,5 +1,6 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
 import { level } from '../constant/level';
+import { jumpSound, dieSound } from '../constant/sound';
 import { MAP_WIDTH } from '../constant/map';
 
 let TILE_MAP_WIDTH;
@@ -16,6 +17,10 @@ class Player {
 
   move(control) {
     if (control.jump && this.jumping === false) {
+      const soundURL = jsfxr(jumpSound); 
+      const player = new Audio();
+      player.src = soundURL;
+      player.play();
       this.speedY -= JUMP_ACCELERATION;
       this.jumping = true;
     }
@@ -59,36 +64,17 @@ class Player {
     ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT);
     ctx.restore();
   }
-
-  die(stageNum) {
-    const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    for (const savePoint of level[stageNum || 0].savePoints) { // TOBE: remove || 0 that is preventing error
-      if (
-        ((currentSavePoint && savePoint.x > currentSavePoint.x) || (!currentSavePoint))
-        && this.x > savePoint.x) {
-        this.saveNewPoint(savePoint);
-      }
-    }
-    this.revive()
+  revive(position) {
+    this.x = position.x
+    this.y = position.y
   }
-
-  saveNewPoint(savePoint) {
-    localStorage.setItem('savePoint', JSON.stringify(savePoint))
+  die(position) {
+    const soundURL = jsfxr(dieSound); 
+    const player = new Audio();
+    player.src = soundURL;
+    player.play();
+    this.revive(position)
   }
-
-  revive() {
-    const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    if (currentSavePoint) {
-      this.x = currentSavePoint.x
-      this.y = currentSavePoint.y
-    } else {
-      this.x = 0
-      this.y = 0
-    }
-  }
-  
 }
 
 export default Player;

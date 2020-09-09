@@ -9,6 +9,7 @@ import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
+import { clearSound } from '../constant/sound';
 
 class Game {
   init() {
@@ -24,9 +25,6 @@ class Game {
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
-    const toStringedPoint = localStorage.getItem('savePoint')
-    // const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint) || {x: 20, y: 0}
-    // this.player = new Player(currentSavePoint.x, currentSavePoint.y);
     this.control = new Control()
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
@@ -42,7 +40,7 @@ class Game {
     control.init();
     camera.init(this.stage.buffer);
 
-    this.player = new Player(500, 0, this.stage.buffer);
+    this.player = new Player(this.stage.startPoint.x, this.stage.startPoint.y, this.stage.buffer);
 
     this.portal = new Portal(this.stage.portal, this.context, this.player);
   
@@ -87,7 +85,7 @@ class Game {
     });
     
     obstacles.forEach(obstacle => {
-      obstacle.update(colorObj, control)
+      obstacle.update(colorObj, this.stage.startPoint)
     });
 
     map.update(player, colorObj)
@@ -129,10 +127,12 @@ class Game {
       this.load(this.stageNum);
       this.state = GAME_STATE.GAME_PLAYING
     }
-
   }
   clearLevel() {
-    this.saveNewPoint({x: 0, y: 0})
+    const soundURL = jsfxr(clearSound); 
+    const player = new Audio();
+    player.src = soundURL;
+    player.play();
   }
 }
 

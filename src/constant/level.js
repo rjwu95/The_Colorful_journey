@@ -17,15 +17,11 @@ export const level = [
     boxes: [
       {x: COLUMNS * 2 - 16, y: 20, color: {r: 113, g: 107, b: 107}}
     ],
-    savePoints: [
-      {x: 100, y: 26},
-      {x: 500, y: 26},
-      {x: 1000, y: 26},
-    ],
     obstacles: [
       {x: COLUMNS * 2 - 30, y: 26}
     ],
-    portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'}
+    portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'},
+    startPoint: {x:500, y: 0}
   },
   {
     buffer: {width: 2, height: 2},
@@ -91,6 +87,7 @@ export const level = [
       {x: 111, y: 56},
       {x: 115, y: 56},
     ],
-    portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'}
+    portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'},
+    startPoint: {x:500, y: 0}
   }
 ];

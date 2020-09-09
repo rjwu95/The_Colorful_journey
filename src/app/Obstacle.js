@@ -8,16 +8,17 @@ class Obstacle extends Item{
     super(x, y, color, ctx, player);
   }
 
-  update(backgroundColor) {
+  update(startPoint, backgroundColor) {
     const {x, y, player, color} = this;
     const backColor = makeRgbColor(backgroundColor);
+
     // collision
     if (x - SIDE < player.x + PLAYER_WIDTH
       && x + SIDE + OBSTACLE_INTERVAL * (OBSTACLE - 1) > player.x
       && y < player.y + PLAYER_HEIGHT
       && y + OBSTACLE_INTERVAL > player.y
       && color !== backColor) {
-        player.die();
+        player.die(startPoint);
       }
   }
 
