@@ -77,7 +77,7 @@ class Game {
           item.backgroundInitialize = false;
           item.changeBackground = false;
         } else {
-          addBackgroundColor(color, item.color)
+          addBackgroundColor(colorObj, item.color)
           item.changeBackground = false;
         }
       }
