@@ -14,7 +14,7 @@ class Obstacle extends Item{
       && x + SIDE + OBSTACLE_INTERVAL * (OBSTACLE - 1) > player.x
       && y < player.y + PLAYER_HEIGHT
       && y + OBSTACLE_INTERVAL > player.y) {
-        player.revive(startPoint);
+        player.die(startPoint);
       }
   }
 

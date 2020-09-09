@@ -1,5 +1,6 @@
 import { ITEM_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
+import { itemSound } from "../constant/sound";
 
 class Item {
   constructor(x, y, color, ctx, player) {
@@ -19,6 +20,12 @@ class Item {
       && x + ITEM_SIZE > player.x
       && y - ITEM_SIZE < player.y + PLAYER_HEIGHT
       && y + ITEM_SIZE > player.y) {
+        if(this.show) {
+          const soundURL = jsfxr(itemSound); 
+          const player = new Audio();
+          player.src = soundURL;
+          player.play();
+        }
         this.show = false;
       }
   }
