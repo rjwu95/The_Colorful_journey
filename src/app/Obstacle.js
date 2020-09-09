@@ -7,14 +7,14 @@ class Obstacle extends Item{
     super(x, y, color, ctx, player);
   }
 
-  update() {
+  update(startPoint) {
     const {x, y, player} = this;
     // collision
     if (x - SIDE < player.x + PLAYER_WIDTH
       && x + SIDE + OBSTACLE_INTERVAL * (OBSTACLE - 1) > player.x
       && y < player.y + PLAYER_HEIGHT
       && y + OBSTACLE_INTERVAL > player.y) {
-        player.die();
+        player.die(startPoint);
       }
   }
 

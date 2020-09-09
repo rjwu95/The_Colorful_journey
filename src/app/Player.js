@@ -64,40 +64,17 @@ class Player {
     ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT);
     ctx.restore();
   }
-
-  die(stageNum) {
+  revive(position) {
+    this.x = position.x
+    this.y = position.y
+  }
+  die(position) {
     const soundURL = jsfxr(dieSound); 
     const player = new Audio();
     player.src = soundURL;
     player.play();
-    const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    for (const savePoint of level[stageNum || 0].savePoints) { // TOBE: remove || 0 that is preventing error
-      if (
-        ((currentSavePoint && savePoint.x > currentSavePoint.x) || (!currentSavePoint))
-        && this.x > savePoint.x) {
-        this.saveNewPoint(savePoint);
-      }
-    }
-    this.revive()
+    this.revive(position)
   }
-
-  saveNewPoint(savePoint) {
-    localStorage.setItem('savePoint', JSON.stringify(savePoint))
-  }
-
-  revive() {
-    const toStringedPoint = localStorage.getItem('savePoint')
-    const currentSavePoint = toStringedPoint && JSON.parse(toStringedPoint)
-    if (currentSavePoint) {
-      this.x = currentSavePoint.x
-      this.y = currentSavePoint.y
-    } else {
-      this.x = 0
-      this.y = 0
-    }
-  }
-  
 }
 
 export default Player;
