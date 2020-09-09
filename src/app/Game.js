@@ -8,7 +8,7 @@ import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../c
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
-import {hasBackgroundColor} from '../utils/utils'
+import {hasBackgroundColor, addBackgroundColor, initBackgroundColor} from '../utils/utils'
 
 const colorObj = {r: 0, g: 0, b: 0};
 
@@ -72,10 +72,14 @@ class Game {
       item.update();
 
       if (!item.show && item.changeBackground) {
-        colorObj.r += item.color.r;
-        colorObj.g += item.color.g;
-        colorObj.b += item.color.b;
-        item.changeBackground = false;
+        if (item.backgroundInitialize) {
+          initBackgroundColor(colorObj)
+          item.backgroundInitialize = false;
+          item.changeBackground = false;
+        } else {
+          addBackgroundColor(color, item.color)
+          item.changeBackground = false;
+        }
       }
     })
 
@@ -100,7 +104,7 @@ class Game {
     const {state, context, map, player, camera, items, boxes, obstacles, portal} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-    if(hasBackgroundColor(colorObj)) {
+    if(!hasBackgroundColor(colorObj)) {
       context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
       context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
     }
