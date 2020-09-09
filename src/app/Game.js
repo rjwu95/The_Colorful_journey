@@ -10,8 +10,6 @@ import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
 
-const colorObj = {r: 0, g: 0, b: 0};
-
 class Game {
   init() {
     // main canvas
@@ -21,7 +19,8 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.state = GAME_STATE.GAME_READY;
-    this.stageNum = 0;
+    this.stageNum = 1;
+    this.colorObj = {r: 0, g: 0, b: 0};
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
@@ -63,7 +62,7 @@ class Game {
   }
 
   update() {
-    const {player, camera, control, stage, items, boxes, map, obstacles, portal} = this;
+    const {player, camera, control, stage, items, boxes, map, obstacles, portal, colorObj} = this;
     player.move(control);
     player.update(stage.map);
     camera.update(player.x, player.y);
@@ -101,7 +100,7 @@ class Game {
   }
 
   render() {
-    const {state, context, map, player, camera, items, boxes, obstacles, portal} = this;
+    const {state, context, map, player, camera, items, boxes, obstacles, portal, colorObj} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
     if(!checkInitailBackground(colorObj)) {
@@ -126,9 +125,7 @@ class Game {
       player.render(camera.cx,  camera.cy, context);
       portal.render(camera.cx,  camera.cy)
     } else if (state === GAME_STATE.GAME_CLEAR) {
-      colorObj.r = 0;
-      colorObj.g = 0;
-      colorObj.b = 0;
+      initBackgroundColor(colorObj)
       this.load(this.stageNum);
       this.state = GAME_STATE.GAME_PLAYING
     }
