@@ -85,14 +85,20 @@ class Game {
     });
     
     obstacles.forEach(obstacle => {
-      obstacle.update(colorObj, this.stage.startPoint)
+      obstacle.update(colorObj)
     });
 
     map.update(player, colorObj)
 
+    // when player die
+    if (!player.alive) {
+      this.state = GAME_STATE.GAME_OVER;
+      player.die(stage.startPoint);
+    }
+
     // when player reach the portal
     if (this.portal.reach) {
-      this.state = GAME_STATE.GAME_CLEAR;
+      this.state = GAME_STATE.STAGE_CLEAR;
       this.stageNum += 1;
     }
   }
@@ -106,28 +112,30 @@ class Game {
       context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
     }
 
-    if (state === GAME_STATE.GAME_READY) {
-      // Todo: renderReady
-    } else if (state === GAME_STATE.GAME_PLAYING) {
-      this.update();
-      map.render(camera.cx, camera.cy);
-      items.forEach(item => {
-        item.render(camera.cx,camera.cy)
-      });
-      boxes.forEach(box => {
-        box.render(camera.cx, camera.cy)
-      });
-      obstacles.forEach(obstacle => {
-        obstacle.render(camera.cx, camera.cy)
-      });
-      player.render(camera.cx,  camera.cy, context);
-      portal.render(camera.cx,  camera.cy)
-    } else if (state === GAME_STATE.GAME_CLEAR) {
-      initBackgroundColor(colorObj)
-      this.load(this.stageNum);
-      this.state = GAME_STATE.GAME_PLAYING
+    switch (state) {
+      case GAME_STATE.GAME_PLAYING:
+        this.update();
+        map.render(camera.cx, camera.cy);
+        items.forEach(item => {
+          item.render(camera.cx,camera.cy)
+        });
+        boxes.forEach(box => {
+          box.render(camera.cx, camera.cy)
+        });
+        obstacles.forEach(obstacle => {
+          obstacle.render(camera.cx, camera.cy)
+        });
+        player.render(camera.cx,  camera.cy, context);
+        portal.render(camera.cx,  camera.cy);
+        break;
+      case GAME_STATE.STAGE_CLEAR:
+      case GAME_STATE.GAME_OVER:
+        initBackgroundColor(colorObj);
+        this.load(this.stageNum);
+        this.state = GAME_STATE.GAME_PLAYING;
     }
   }
+
   clearLevel() {
     const soundURL = jsfxr(clearSound); 
     const player = new Audio();

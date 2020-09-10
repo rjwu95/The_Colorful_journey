@@ -8,7 +8,7 @@ class Obstacle extends Item{
     super(x, y, color, ctx, player);
   }
 
-  update(startPoint, backgroundColor) {
+  update(backgroundColor) {
     const {x, y, player, color} = this;
     const backColor = makeRgbColor(backgroundColor);
 
@@ -18,7 +18,7 @@ class Obstacle extends Item{
       && y < player.y + PLAYER_HEIGHT
       && y + OBSTACLE_INTERVAL > player.y
       && color !== backColor) {
-        player.die(startPoint);
+        player.alive = false;
       }
   }
 

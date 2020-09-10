@@ -12,6 +12,7 @@ class Player {
     this.x = x;
     this.y = y;
     this.jumping = false
+    this.alive = true;
     TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
   }
 
@@ -67,6 +68,7 @@ class Player {
   revive(position) {
     this.x = position.x
     this.y = position.y
+    this.alive = true;
   }
   die(position) {
     const soundURL = jsfxr(dieSound); 
