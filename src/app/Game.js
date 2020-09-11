@@ -21,7 +21,7 @@ class Game {
 
     this.state = GAME_STATE.GAME_READY;
     this.stageNum = 1;
-    this.colorObj = {r: 0, g: 0, b: 0};
+    this.colorObj = {r: 113, g: 107, b: 107};
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
@@ -69,14 +69,17 @@ class Game {
       item.update();
 
       if (!item.show && item.changeBackground) {
-        if (item.backgroundInitialize) {
-          initBackgroundColor(colorObj)
-          item.backgroundInitialize = false;
-          item.changeBackground = false;
+        if (
+          (JSON.stringify(colorObj) === JSON.stringify({r: 113, g: 107, b: 107}))
+          || (JSON.stringify(item.color) === JSON.stringify({r: 113, g: 107, b: 107}))
+        ) {
+          colorObj.r = item.color.r;
+          colorObj.g = item.color.g;
+          colorObj.b = item.color.b;  
         } else {
           addBackgroundColor(colorObj, item.color)
-          item.changeBackground = false;
         }
+        item.changeBackground = false;
       }
     })
 

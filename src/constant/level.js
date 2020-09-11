@@ -21,7 +21,7 @@ export const level = [
       {x: COLUMNS * 2 - 30, y: 26}
     ],
     portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'},
-    startPoint: {x:500, y: 0}
+    startPoint: {x:100, y: 200}
   },
   {
     buffer: {width: 2, height: 2},
@@ -89,5 +89,47 @@ export const level = [
     ],
     portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'},
     startPoint: {x:500, y: 0}
+  },
+  {
+    buffer: {width: 2, height: 1},
+    map: [
+      {x: 25, y: 21, w: 1, h: 4, color: 'rgb(100, 0, 0)'},
+      {x: 25, y: 20, w: 5, h: 1, color: 'rgb(100, 0, 0)'},
+      {x: 0, y: 0, w: 4, h: ROWS},
+      {x: 4, y: 25, w: COLUMNS * 2, h: 12},
+      {x: 37, y: 20, w: 3, h: 5, color: 'rgb(200, 100, 0)'},
+      {x: 45, y: 15, w: 3, h: 10},
+      {x: 54, y: 15, w: 3, h: 10, color: 'rgb(100, 50, 200)'},
+      {x: 63, y: 15, w: 3, h: 10},
+      {x: 72, y: 15, w: 3, h: 10, color: 'rgb(100, 50, 200)'},
+      {x: 81, y: 15, w: 3, h: 10},
+    ],
+    items: [],
+    boxes: [
+      {x: COLUMNS * 2 - 16, y: 19, color: {r: 160, g: 82, b: 45}}
+    ],
+    obstacles: [
+      {x: 41, y: 25},
+      {x: 49.5, y: 25},
+      {x: 58.5, y: 25},
+      {x: 67.5, y: 25},
+      {x: 76.5, y: 25},
+      {x: 84, y: 25},
+      {x: 87.5, y: 25},
+      {x: 91, y: 25},
+    ],
+    portal: {x: COLUMNS * 2 - 4, y: 9, color: 'pink'},
+    startPoint: {x: 200, y: 500},
+    items: [
+      {x: 14, y: 23, color: {r:100, g:0, b: 0}},
+      {x: 28, y: 23, color: {r:100, g:100, b: 0}},
+      // {x: 24, y: 23, color: {r:0, g:150, b: 0}},
+      // {x: 30, y: 23, color: {r:0, g:150, b: 100}},
+      {x: 46.5, y: 11, color: {r: 0, g: 50, b: 200}},
+      // {x: 55.5, y: 11, color: {r: 113, g: 107, b: 107}},
+      {x: 64.5, y: 11, color: {r: 0, g: 50, b: 200}},
+      {x: 82.5, y: 13.5, color: {r: 160, g: 82, b: 45}},
+      {x: 82.5, y: 11, color: {r: 113, g: 107, b: 107}},
+    ],
   }
 ];

@@ -48,9 +48,9 @@ class Player {
     this.x += this.speedX;
     this.y += this.speedY;
 
-    this.speedY += GRAVITY; // gravity
-    this.speedX *= FRICTION_RATIO; // friction
-    this.speedY *= FRICTION_RATIO; // friction
+    this.speedY += GRAVITY;
+    this.speedX *= FRICTION_RATIO;
+    this.speedY *= FRICTION_RATIO;
   }
 
   stop() {
