@@ -1,7 +1,7 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
 import { level } from '../constant/level';
 import { jumpSound, dieSound } from '../constant/sound';
-import { MAP_WIDTH } from '../constant/map';
+import { MAP_WIDTH, BLOCK_WIDTH } from '../constant/map';
 
 let TILE_MAP_WIDTH;
 
@@ -9,8 +9,8 @@ class Player {
   constructor(x, y, buffer) {
     this.speedX = 0;
     this.speedY = 0;
-    this.x = x;
-    this.y = y;
+    this.x = x * BLOCK_WIDTH;
+    this.y = y * BLOCK_WIDTH;
     this.jumping = false
     this.alive = true;
     TILE_MAP_WIDTH = MAP_WIDTH * buffer.width;
