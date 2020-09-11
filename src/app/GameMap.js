@@ -1,5 +1,5 @@
-import {scaledMap} from '../utils/utils';
-import {MAP_WIDTH, MAP_HEIGHT} from '../constant/map';
+import {scaledMap, makeRgbColor} from '../utils/utils';
+import {MAP_WIDTH} from '../constant/map';
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player';
 
 // The map tile buffer canvas' context
@@ -62,49 +62,54 @@ class GameMap {
       && player.y + PLAYER_HEIGHT > y + h
       && player.speedY < 0);
   }
-  update(player) {
-    this.scaledMapData.forEach((el, idx) => {
-      const{x, y, w, h} = el;
 
+  update(player, backgroundColor) {
+    const backColor = makeRgbColor(backgroundColor);
+
+    this.scaledMapData.forEach((el, idx) => {
+      const{x, y, w, h, color} = el;
+
+      if (color !== backColor) {
         // left collision
         if (this.leftCollision(player, el)
-          && xCollision[idx]) {
-           if (this.topCollision(player, el)) {
-             xCollision[idx] = false;
-             player.y = y - PLAYER_HEIGHT;
-           } else {
-            player.x = x - PLAYER_WIDTH;
-          }
+        && xCollision[idx]) {
+        if (this.topCollision(player, el)) {
+          xCollision[idx] = false;
+          player.y = y - PLAYER_HEIGHT;
+        } else {
+          player.x = x - PLAYER_WIDTH;
         }
-        
+        }
+
         // right collision
         else if (this.rightCollision(player, el)
-          && xCollision[idx]) {
-            if (this.topCollision(player, el)) {
-              xCollision[idx] = false;
-              player.y = y - PLAYER_HEIGHT;
-              player.jumping = false;
-            }else {
-              player.x = x + w
-            }
+        && xCollision[idx]) {
+          if (this.topCollision(player, el)) {
+            xCollision[idx] = false;
+            player.y = y - PLAYER_HEIGHT;
+            player.jumping = false;
+          }else {
+            player.x = x + w
+          }
         }
 
         // top collision
         else if (this.topCollision(player, el)) {
-          xCollision[idx] = false;
-          player.y = y - PLAYER_HEIGHT;
-          player.jumping = false;
+        xCollision[idx] = false;
+        player.y = y - PLAYER_HEIGHT;
+        player.jumping = false;
         }
 
         // bottom collision
         else if (this.bottomCollision(player, el)) {
-            xCollision[idx] = false;
-            player.y = y + h;
+          xCollision[idx] = false;
+          player.y = y + h;
         }
 
         else {
-          xCollision[idx] = true;
+        xCollision[idx] = true;
         }
+      }
     });
   }
 

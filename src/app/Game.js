@@ -8,11 +8,8 @@ import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../c
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
+import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
 import { clearSound } from '../constant/sound';
-
-
-const colorObj = {r: 0, g: 0, b: 0};
-let hasBackgroundColor = false;
 
 class Game {
   init() {
@@ -23,7 +20,8 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.state = GAME_STATE.GAME_READY;
-    this.stageNum = 0;
+    this.stageNum = 1;
+    this.colorObj = {r: 0, g: 0, b: 0};
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
@@ -62,7 +60,7 @@ class Game {
   }
 
   update() {
-    const {player, camera, control, stage, items, boxes, map, obstacles, portal} = this;
+    const {player, camera, control, stage, items, boxes, map, obstacles, portal, colorObj} = this;
     player.move(control);
     player.update(stage.map);
     camera.update(player.x, player.y);
@@ -71,11 +69,14 @@ class Game {
       item.update();
 
       if (!item.show && item.changeBackground) {
-        hasBackgroundColor = true;
-        colorObj.r += item.color.r;
-        colorObj.g += item.color.g;
-        colorObj.b += item.color.b;
-        item.changeBackground = false;
+        if (item.backgroundInitialize) {
+          initBackgroundColor(colorObj)
+          item.backgroundInitialize = false;
+          item.changeBackground = false;
+        } else {
+          addBackgroundColor(colorObj, item.color)
+          item.changeBackground = false;
+        }
       }
     })
 
@@ -84,53 +85,57 @@ class Game {
     });
     
     obstacles.forEach(obstacle => {
-      obstacle.update(this.stage.startPoint)
+      obstacle.update(colorObj)
     });
 
-    map.update(player)
+    map.update(player, colorObj)
+
+    // when player die
+    if (!player.alive) {
+      this.state = GAME_STATE.GAME_OVER;
+      player.die(stage.startPoint);
+    }
 
     // when player reach the portal
     if (this.portal.reach) {
-      this.state = GAME_STATE.GAME_CLEAR;
+      this.state = GAME_STATE.STAGE_CLEAR;
       this.stageNum += 1;
-      hasBackgroundColor = false;
     }
   }
 
   render() {
-    const {state, context, map, player, camera, items, boxes, obstacles, portal} = this;
+    const {state, context, map, player, camera, items, boxes, obstacles, portal, colorObj} = this;
 
     context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-    if(hasBackgroundColor) {
+    if(!checkInitailBackground(colorObj)) {
       context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
       context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
     }
 
-    if (state === GAME_STATE.GAME_READY) {
-      // Todo: renderReady
-    } else if (state === GAME_STATE.GAME_PLAYING) {
-      this.update();
-      map.render(camera.cx, camera.cy);
-      items.forEach(item => {
-        item.render(camera.cx,camera.cy)
-      });
-      boxes.forEach(box => {
-        box.render(camera.cx, camera.cy)
-      });
-      obstacles.forEach(obstacle => {
-        obstacle.render(camera.cx, camera.cy)
-      });
-      player.render(camera.cx,  camera.cy, context);
-      portal.render(camera.cx,  camera.cy)
-    } else if (state === GAME_STATE.GAME_CLEAR) {
-      this.clearLevel()
-      colorObj.r = 0;
-      colorObj.g = 0;
-      colorObj.b = 0;
-      this.load(this.stageNum);
-      this.state = GAME_STATE.GAME_PLAYING
+    switch (state) {
+      case GAME_STATE.GAME_PLAYING:
+        this.update();
+        map.render(camera.cx, camera.cy);
+        items.forEach(item => {
+          item.render(camera.cx,camera.cy)
+        });
+        boxes.forEach(box => {
+          box.render(camera.cx, camera.cy)
+        });
+        obstacles.forEach(obstacle => {
+          obstacle.render(camera.cx, camera.cy)
+        });
+        player.render(camera.cx,  camera.cy, context);
+        portal.render(camera.cx,  camera.cy);
+        break;
+      case GAME_STATE.STAGE_CLEAR:
+      case GAME_STATE.GAME_OVER:
+        initBackgroundColor(colorObj);
+        this.load(this.stageNum);
+        this.state = GAME_STATE.GAME_PLAYING;
     }
   }
+
   clearLevel() {
     const soundURL = jsfxr(clearSound); 
     const player = new Audio();

@@ -1,4 +1,4 @@
-import { ITEM_SIZE } from "../constant/map";
+import { ITEM_SIZE, BACKGROUND_COLOR } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import { itemSound } from "../constant/sound";
 
@@ -10,11 +10,12 @@ class Item {
     this.color = color;
     this.player = player;
     this.show = true;
+    this.backgroundInitialize = false;
     this.changeBackground = true;
   }
 
   update() {
-    const {x, y, player} = this;
+    const {x, y, player, color} = this;
     // collision
     if (x - ITEM_SIZE < player.x + PLAYER_WIDTH
       && x + ITEM_SIZE > player.x
@@ -27,6 +28,9 @@ class Item {
           player.play();
         }
         this.show = false;
+        if(JSON.stringify(color) === JSON.stringify(BACKGROUND_COLOR)) {
+          this.backgroundInitialize = true;
+        }
       }
   }
 
