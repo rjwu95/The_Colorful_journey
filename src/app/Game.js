@@ -4,7 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
 import Box from './Box';
-import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../constant/map';
+import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT, BACKGROUND_COLOR} from '../constant/map';
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
@@ -20,8 +20,8 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.state = GAME_STATE.GAME_READY;
-    this.stageNum = 1;
-    this.colorObj = {r: 113, g: 107, b: 107};
+    this.stageNum = 0;
+    this.colorObj = {...BACKGROUND_COLOR};
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
@@ -70,8 +70,8 @@ class Game {
 
       if (!item.show && item.changeBackground) {
         if (
-          (JSON.stringify(colorObj) === JSON.stringify({r: 113, g: 107, b: 107}))
-          || (JSON.stringify(item.color) === JSON.stringify({r: 113, g: 107, b: 107}))
+          (JSON.stringify(colorObj) === JSON.stringify(BACKGROUND_COLOR))
+          || (JSON.stringify(item.color) === JSON.stringify(BACKGROUND_COLOR))
         ) {
           colorObj.r = item.color.r;
           colorObj.g = item.color.g;
