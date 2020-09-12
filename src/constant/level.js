@@ -126,5 +126,104 @@ export const level = [
       {x: 115, y: 56},
     ],
     portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'},
+  },
+  {
+    buffer: {width: 2, height: 3},
+    map: [
+      {x: 0, y: 0, w:  4, h: 26},
+      {x: 0, y: 26, w:  106, h: 8},
+      {x: 12, y: 10, w:  8, h: 16},
+      {x: 4, y: 19, w: 4, h: 2, color: makeRgbColor(BACKGROUND_COLOR)},
+      {x: 8, y: 12, w: 4, h: 2, color: makeRgbColor(BACKGROUND_COLOR)},
+      {x: 20, y: 7, w: 6,  h: 19},
+      {x: 32, y: 10, w: 4,  h: 2},
+      {x: 38, y: 4, w: 4,  h: 2}, // 위
+      {x: 38, y: 16, w: 4,  h: 2}, // 아래
+      {x: 44, y: 12, w: 4,  h: 2},
+      {x: 46, y: 19, w:6, h: 2, color: 'rgb(0, 0, 255)'},
+      {x: 53, y: 0, w: 12, h: 6, color: 'rgb(255, 255, 255)'},
+      {x: 53, y: 19, w: 4,  h: 7},
+      {x: 53, y: 6, w: 4,  h: 9},
+      {x: 57, y: 6, w: 8,  h: 20},
+      {x: 65, y: 8, w: 24, h: 2, color: makeRgbColor(BACKGROUND_COLOR)}, // 회색 장애물
+      {x: 89, y: 0, w: 27,  h: 11},
+
+      {x: 80, y: 52, w: 6, h: 6, color:  makeRgbColor(BACKGROUND_COLOR)}, // 1번 박스
+      {x: 74, y: 52, w: 6, h: 6}, // 2번 박스
+      {x: 56, y: 46, w: 4, h: 2, color: 'rgb(255, 0, 0)'}, // 밟은거
+      {x: 43, y: 46, w: 4, h: 2, color: 'rgb(0, 255, 255)'}, // 밟은거
+      {x: 14, y: 58, w: 102,  h: 8}, // 두번째 바닥
+
+      {x: 18, y: 82, w: 4,  h: 2},
+      {x: 22, y: 76, w: 3,  h: 8},
+      {x: 22, y: 84, w: 3,  h: 5, color: 'rgb(255, 255, 0)'},
+      {x: 25, y: 76, w: 30,  h: 5}, // 2층 블록
+      {x: 52, y: 81, w: 3,  h: 8, color: 'rgb(255, 0, 0)'},
+
+      // {x: 72, y: 70, w: 3,  h: 9, color: 'rgb(255, 0, 0)'},
+      {x: 65, y: 66, w: 3,  h: 24, color: 'rgb(255, 255, 0)'},
+
+      {x: 80, y: 84, w: 4,  h: 2, color: makeRgbColor(BACKGROUND_COLOR)},
+      {x: 87, y: 79, w: 4,  h: 2, color: 'rgb(0, 0, 255)'},
+      {x: 94, y: 74, w: 4,  h: 2,  color: 'rgb(0, 255, 255)'},
+
+      {x: 108, y: 79, w: 8,  h: 18},
+      {x: 0, y: 89, w: 116,  h: 8},
+    ],
+    items: [
+      {x: 10, y: 24, color: {r: 0, g: 0, b: 255}},
+      {x: 40, y: 2, color: BACKGROUND_COLOR},
+      {x: 40, y: 14, color: {r: 0, g: 255, b: 0}},
+      {x: 54, y: 17, color: {r: 255, g: 0, b: 0}},
+      {x: 90, y: 56, color: {r: 255, g: 0, b: 0}},
+      {x: 93, y: 56, color: BACKGROUND_COLOR},
+      {x: 96, y: 56, color: {r:0, g: 255, b: 0}},
+      {x: 96, y: 56, color: {r:0, g: 255, b: 0}},
+
+      {x: 72, y: 40, color: {r:0, g: 0, b: 255}},
+      // {x: 82, y: 87, color: {r:0, g: 0, b: 255}},
+      {x: 82, y: 82, color: {r:0, g: 0, b: 255}},
+      {x: 89, y: 77, color: {r:0, g: 255, b: 0}},
+      {x: 96, y: 72, color: {r:255, g: 0, b: 0}},
+      {x: 62, y: 87, color: {r: 255, g: 0, b: 0}},
+      {x: 27, y: 87, color: {r: 0, g: 255, b: 0}},
+      // {x: 76, y: 89},
+      {x: 74, y: 87, color: BACKGROUND_COLOR},
+      
+      {x: 86, y: 6, color: BACKGROUND_COLOR},
+    ],
+    boxes: [
+      {x: 74, y: 46, color: {r: 255, g: 255, b: 0}},
+    ],
+    startPoint: {x: 5, y: 75},
+    obstacles: [
+      {x: 26, y: 26},
+      {x: 30, y: 26},
+      {x: 34, y: 26},
+      {x: 38, y: 26},
+      {x: 42, y: 26},
+      {x: 46, y: 26},
+      {x: 50, y: 26},
+      {x: 65, y: 26},
+      {x: 69, y: 26},
+      {x: 73, y: 26},
+      {x: 77, y: 26},
+      {x: 81, y: 26},
+      {x: 85, y: 26},
+      {x: 70, y: 58},
+      {x: 66, y: 58},
+      {x: 62, y: 58},
+      {x: 58, y: 58},
+      {x: 54, y: 58},
+      {x: 50, y: 58},
+      {x: 46, y: 58},
+      {x: 42, y: 58},
+      {x: 38, y: 58},
+      {x: 34, y: 58},
+      {x: 30, y: 58},
+      {x: 76, y: 89},
+
+    ],
+    portal: {x: COLUMNS * 2 - 4, y: 76, color: 'pink'},
   }
 ];
