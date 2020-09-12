@@ -4,7 +4,7 @@ import Control from "./Control";
 import Camera from "./Camera"
 import Item from './Item';
 import Box from './Box';
-import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT} from '../constant/map';
+import {MAP_WIDTH, MAP_HEIGHT, BLOCK_WIDTH, GAME_STATE, BLOCK_HEIGHT, BACKGROUND_COLOR} from '../constant/map';
 import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
@@ -21,7 +21,7 @@ class Game {
 
     this.state = GAME_STATE.GAME_READY;
     this.stageNum = 1;
-    this.colorObj = {r: 0, g: 0, b: 0};
+    this.colorObj = {...BACKGROUND_COLOR};
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
@@ -69,14 +69,17 @@ class Game {
       item.update();
 
       if (!item.show && item.changeBackground) {
-        if (item.backgroundInitialize) {
-          initBackgroundColor(colorObj)
-          item.backgroundInitialize = false;
-          item.changeBackground = false;
+        if (
+          (JSON.stringify(colorObj) === JSON.stringify(BACKGROUND_COLOR))
+          || (JSON.stringify(item.color) === JSON.stringify(BACKGROUND_COLOR))
+        ) {
+          colorObj.r = item.color.r;
+          colorObj.g = item.color.g;
+          colorObj.b = item.color.b;  
         } else {
           addBackgroundColor(colorObj, item.color)
-          item.changeBackground = false;
         }
+        item.changeBackground = false;
       }
     })
 
