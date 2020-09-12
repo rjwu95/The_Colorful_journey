@@ -150,8 +150,8 @@ export const level = [
 
       {x: 80, y: 52, w: 6, h: 6, color:  makeRgbColor(BACKGROUND_COLOR)}, // 1번 박스
       {x: 74, y: 52, w: 6, h: 6}, // 2번 박스
-      {x: 56, y: 46, w: 4, h: 2, color: 'rgb(255, 0, 0)'}, // 밟은거
-      {x: 43, y: 46, w: 4, h: 2, color: 'rgb(0, 255, 255)'}, // 밟은거
+      {x: 57, y: 46, w: 4, h: 2, color: 'rgb(255, 0, 0)'}, // 밟은거
+      {x: 44, y: 46, w: 4, h: 2, color: 'rgb(0, 255, 255)'}, // 밟은거
       {x: 14, y: 58, w: 102,  h: 8}, // 두번째 바닥
 
       {x: 18, y: 82, w: 4,  h: 2},
@@ -175,27 +175,27 @@ export const level = [
       {x: 40, y: 2, color: BACKGROUND_COLOR},
       {x: 40, y: 14, color: {r: 0, g: 255, b: 0}},
       {x: 54, y: 17, color: {r: 255, g: 0, b: 0}},
-      {x: 90, y: 56, color: {r: 255, g: 0, b: 0}},
       {x: 93, y: 56, color: BACKGROUND_COLOR},
-      {x: 96, y: 56, color: {r:0, g: 255, b: 0}},
-      {x: 96, y: 56, color: {r:0, g: 255, b: 0}},
+      {x: 97, y: 56, color: {r: 255, g: 0, b: 0}},
+      {x: 101, y: 56, color: {r:0, g: 255, b: 0}},
 
-      {x: 72, y: 40, color: {r:0, g: 0, b: 255}},
+      {x: 76, y: 40, color: {r:0, g: 0, b: 255}},
       // {x: 82, y: 87, color: {r:0, g: 0, b: 255}},
       {x: 82, y: 82, color: {r:0, g: 0, b: 255}},
       {x: 89, y: 77, color: {r:0, g: 255, b: 0}},
       {x: 96, y: 72, color: {r:255, g: 0, b: 0}},
       {x: 62, y: 87, color: {r: 255, g: 0, b: 0}},
       {x: 27, y: 87, color: {r: 0, g: 255, b: 0}},
-      // {x: 76, y: 89},
+      // {x: 76, y: 89},18, y: 82,
       {x: 74, y: 87, color: BACKGROUND_COLOR},
+      {x: 20, y: 80, color: BACKGROUND_COLOR},
       
       {x: 86, y: 6, color: BACKGROUND_COLOR},
     ],
     boxes: [
       {x: 74, y: 46, color: {r: 255, g: 255, b: 0}},
     ],
-    startPoint: {x: 5, y: 75},
+    startPoint: {x: 5, y: 5},
     obstacles: [
       {x: 26, y: 26},
       {x: 30, y: 26},

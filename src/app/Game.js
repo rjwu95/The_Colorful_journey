@@ -79,19 +79,20 @@ class Game {
         } else {
           addBackgroundColor(colorObj, item.color)
         }
-        item.changeBackground = false;
+          item.changeBackground = false;
       }
     })
 
     boxes.forEach(box => {
-      box.update(colorObj, control)
+      box.update(colorObj, map);
     });
     
     obstacles.forEach(obstacle => {
       obstacle.update(colorObj)
     });
 
-    map.update(player, colorObj)
+    map.update(player, colorObj);
+    map.updateBox(boxes, colorObj);
 
     // when player die
     if (!player.alive) {
