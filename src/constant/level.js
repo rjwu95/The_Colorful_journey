@@ -21,7 +21,7 @@ export const level = [
       {x: COLUMNS * 2 - 30, y: 26}
     ],
     portal: {x: COLUMNS * 2 - 4, y: 10, color: 'pink'},
-    startPoint: {x:BLOCK_WIDTH, y: BLOCK_HEIGHT * 8}
+    startPoint: {x: 2, y: 6}
   },
   {
     buffer: {width: 2, height: 1},
@@ -51,7 +51,7 @@ export const level = [
       {x: 91, y: 25},
     ],
     portal: {x: COLUMNS * 2 - 4, y: 9, color: 'pink'},
-    startPoint: {x:BLOCK_WIDTH*5, y: BLOCK_HEIGHT*15},
+    startPoint: {x: 5, y: 15},
     items: [
       {x: 14, y: 23, color: {r:100, g:0, b: 0}},
       {x: 28, y: 23, color: {r:100, g:100, b: 0}},
@@ -66,7 +66,7 @@ export const level = [
     map: [
       {x: 0, y: 0, w: 4, h: ROWS * 2},
       {x: 4, y: 22, w: 4, h: 2},
-      // {x: 4, y: 38, w: 8, h: 4, color: 'rgb(0, 0, 255)'},
+      {x: 4, y: 38, w: 8, h: 4, color: 'rgb(0, 0, 255)'},
       {x: 4, y: 36, w: 4, h: 2, color: 'rgb(113, 107, 107)'},
       {x: 8, y: 42, w: 4, h: 2, color: 'rgb(113, 107, 107)'},
       {x: 4, y: 49, w: 4, h: 2, color: 'rgb(113, 107, 107)'},
@@ -99,7 +99,7 @@ export const level = [
       {x: 91, y: 22, w: 4, h: 34},
       {x: 95, y: 16, w: 8, h: 40},
       {x: 99, y: 0, w: 4, h: 16, color: 'rgb(255, 0, 255)'},
-      {x: 103, y: 0, w: 4, h: 46, color: 'rgb(255, 0, 255)'},
+      {x: 103, y: 0, w: 4, h: 16, color: 'rgb(255, 0, 255)'},
       {x: 103, y: 10, w: 4, h: 46},
       {x: 0, y: 56, w:  COLUMNS * 2, h: 8},
     ],
@@ -112,7 +112,7 @@ export const level = [
     boxes: [
       {x: 69, y: 50, color: {...BACKGROUND_COLOR}}
     ],
-    savePoints: [],
+    startPoint: {x: 5, y: 0},
     obstacles: [
       {x: 28, y: 56},
       {x: 40, y: 56, color: makeRgbColor(BACKGROUND_COLOR)},
@@ -126,6 +126,5 @@ export const level = [
       {x: 115, y: 56},
     ],
     portal: {x: COLUMNS * 2 - 4, y: 8, color: 'pink'},
-    startPoint: {x:500, y: 0}
-  },
+  }
 ];
