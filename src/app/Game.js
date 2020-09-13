@@ -10,6 +10,7 @@ import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
 import { clearSound } from '../constant/sound';
+import Menu from './Menu';
 
 class Game {
   init() {
@@ -37,10 +38,11 @@ class Game {
     this.stage = level[stageNum];
 
     map.load(this.stage.buffer, this.stage.map);
-    control.init();
     camera.init(this.stage.buffer);
-
+    
     this.player = new Player(this.stage.startPoint.x, this.stage.startPoint.y, this.stage.buffer);
+    this.menu = new Menu(this, this.player);
+    control.init(this.menu);
 
     this.portal = new Portal(this.stage.portal, this.context, this.player);
   
