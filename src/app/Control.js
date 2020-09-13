@@ -1,10 +1,13 @@
+import { GAME_STATE } from "../constant/map";
+
 export class Control {
-  constructor() {
+  constructor(game) {
     this.left = false
     this.right = false
     this.jump = false
     this.tintEl = document.getElementsByTagName("t")[0];
     this.optionsEl = document.getElementById("o");
+    this.game = game
   }
 
   
@@ -13,7 +16,7 @@ export class Control {
       const isMenu = !menu.menuEl.classList.contains("r")
       const isInro = !menu.introEl.classList.contains("r")
       if (event.code === 'Escape') {
-        if (!isInro){
+        if (!isInro && this.game.state !== GAME_STATE.GAME_CLEAR){
           isMenu ? menu.hide() : menu.show()
         }
       } else if(!isMenu && !isInro) {

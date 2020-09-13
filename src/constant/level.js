@@ -275,6 +275,6 @@ export const level = [
       {x: 76, y: 89},
 
     ],
-    portal: {x: COLUMNS * 2 - 4, y: 76},
+    portal: {x: COLUMNS * 2 - 4, y: 75},
   }
 ];
