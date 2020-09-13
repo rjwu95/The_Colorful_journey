@@ -9,7 +9,7 @@ import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
-import { clearSound } from '../constant/sound';
+import { clearSound, gameClearSound } from '../constant/sound';
 import { CLEAR_TEXT_COLOR, CLEAR_TEXT, FONT_SIZE } from '../constant/map';
 import Menu from './Menu';
 
@@ -22,7 +22,7 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.state = GAME_STATE.GAME_READY;
-    this.stageNum = 1;
+    this.stageNum = 4;
     this.colorObj = {...BACKGROUND_COLOR};
 
     this.camera = new Camera();
@@ -66,7 +66,6 @@ class Game {
 
   update() {
     const {player, camera, control, stage, items, boxes, map, obstacles, portal, colorObj} = this;
-    console.log(colorObj)
     player.move(control);
     player.update(stage.map);
     camera.update(player.x, player.y);
@@ -109,8 +108,16 @@ class Game {
     // when player reach the portal
     if (this.portal.reach) {
       if (this.stageNum === 4) {
+        const soundURL = jsfxr(gameClearSound); 
+        const player = new Audio();
+        player.src = soundURL;
+        player.play();
         this.state = GAME_STATE.GAME_CLEAR;
       } else {
+        const soundURL = jsfxr(clearSound); 
+        const player = new Audio();
+        player.src = soundURL;
+        player.play();
         this.state = GAME_STATE.STAGE_CLEAR;
         this.stageNum += 1;
       }
@@ -161,13 +168,6 @@ class Game {
         }, 200)
 
     }
-  }
-
-  clearLevel() {
-    const soundURL = jsfxr(clearSound); 
-    const player = new Audio();
-    player.src = soundURL;
-    player.play();
   }
 }
 
