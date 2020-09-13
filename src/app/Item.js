@@ -40,7 +40,7 @@ class Item {
       if (this.show) {
         const itemColor = makeRgbColor(color)
         if (JSON.stringify(color) !== JSON.stringify(BACKGROUND_COLOR) ) {
-          ctx.strokeStyle = itemColor;
+          ctx.strokeStyle = 'black';
         }
         ctx.beginPath();
         ctx.arc(x - cx, y - cy, ITEM_SIZE, 0, 2 * Math.PI);

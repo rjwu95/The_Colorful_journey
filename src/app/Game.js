@@ -22,7 +22,7 @@ class Game {
     this.context = this.canvas.getContext('2d');
 
     this.state = GAME_STATE.GAME_READY;
-    this.stageNum = 4;
+    this.stageNum = 0;
     this.colorObj = {...BACKGROUND_COLOR};
 
     this.camera = new Camera();
