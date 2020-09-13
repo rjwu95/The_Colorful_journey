@@ -71,6 +71,7 @@ class Player {
     ctx.fillRect(x - cx, y - cy + PLAYER_HEIGHT * 0.4, PLAYER_WIDTH, PLAYER_HEIGHT * 0.6);
     ctx.fillRect(x - cx, y - cy + PLAYER_HEIGHT * 0.4, PLAYER_WIDTH, PLAYER_HEIGHT * 0.6);
 
+    ctx.strokeStyle = 'black'
     ctx.fillStyle = 'white'
     ctx.beginPath();
     ctx.ellipse(x - cx + PLAYER_WIDTH / 3, y - cy + PLAYER_HEIGHT * 0.1, PLAYER_WIDTH * 0.05, PLAYER_HEIGHT * 0.1, 0, 0, 2 * Math.PI);

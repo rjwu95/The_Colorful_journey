@@ -19,7 +19,7 @@ export const OBSTACLE_INTERVAL = MAP_WIDTH/70;
 export const SIDE = OBSTACLE_INTERVAL/2;
 
 export const POTAL_WIDTH = BLOCK_WIDTH * 2;
-export const POTAL_HEIGHT = BLOCK_HEIGHT * 2;
+export const POTAL_HEIGHT = BLOCK_HEIGHT * 4;
 
 export const BACKGROUND_COLOR = {r: 113, g: 107, b: 107};
 export const GAME_STATE = {
