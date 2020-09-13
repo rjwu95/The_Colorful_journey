@@ -28,6 +28,8 @@ class Game {
     this.camera = new Camera();
     this.map = new GameMap(this.context);
     this.control = new Control()
+    this.menu = new Menu(this);
+    this.control.init(this.menu);
     if (this.state === GAME_STATE.GAME_READY) {
       this.load(this.stageNum);
       this.state = GAME_STATE.GAME_PLAYING;
@@ -39,11 +41,11 @@ class Game {
     this.stage = level[stageNum];
 
     map.load(this.stage.buffer, this.stage.map);
+    
     camera.init(this.stage.buffer);
     
-    this.player = new Player(this.stage.startPoint.x, this.stage.startPoint.y, this.stage.buffer);
-    this.menu = new Menu(this, this.player);
-    control.init(this.menu);
+    this.player = new Player(this.stage.startPoint.x, this.stage.startPoint.y, this.stage.buffer);  
+    this.menu.player = this.player
 
     this.portal = new Portal(this.stage.portal, this.context, this.player);
   

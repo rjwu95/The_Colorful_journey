@@ -10,9 +10,13 @@ export class Control {
   
   init(menu) {
     window.addEventListener("keydown", event => {
+      const isMenu = !menu.menuEl.classList.contains("r")
+      const isInro = !menu.introEl.classList.contains("r")
       if (event.code === 'Escape') {
-        menu.isShow ? menu.hide() : menu.show()
-      } else if(!menu.isShow) {
+        if (!isInro){
+          isMenu ? menu.hide() : menu.show()
+        }
+      } else if(!isMenu && !isInro) {
         this.keyListener(event)
       }
     });

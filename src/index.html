@@ -39,9 +39,17 @@
       background: black;
       border: none;
       color: white;
-      font-size: 40px;
+      font: 40px "Comic Sans MS";
       transition: 0.3s ease-in-out;
       cursor: pointer;
+      width: 100%;
+    }
+
+    .title {
+      display: block;
+      margin-bottom: 60px;
+      color: white;
+      font: 60px "Comic Sans MS";
       width: 100%;
     }
 
@@ -52,12 +60,32 @@
     .r {
       display: none !important;
     }
+    p {
+      display: block;
+      margin-bottom: 60px;
+      border: none;
+      color: white;
+      font: 20px "Comic Sans MS";
+      width:45%;
+      /* text-align: left; */
+    }
   </style>
 </head>
 <body>
-  <t class="menu r">
+  <t id="menu" class="r">
     <button id="c">Continue</button>
     <button id="s">Re-start</button>
+  </t>
+  <t id="intro">
+    <span class="title">The Colorful Journey</span>
+    <p>
+      Colors have disappeared from the world of robots!<br/>
+      The robot wanders looking for colors, but only a few RGB colors. <br/>
+      Let's create different colors by combining RGB colors.<br/>
+      <br/>
+      * Think of the three primary colors of light and their combinations.<br/>
+    </p>
+    <button id="n">Let's Start</button>
   </t>
   <canvas id="canvas"></canvas>
 </body>

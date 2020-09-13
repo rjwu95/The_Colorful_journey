@@ -1,13 +1,16 @@
 class Menu {
-  constructor(game, player) {
+  constructor(game) {
     this.game = game
-    this.player = player
-    this.menuEl = document.getElementsByClassName('menu')[0];
-    this.isShow = false
+    this.player = null
+    this.menuEl = document.getElementById('menu');
+    this.introEl = document.getElementById('intro');
     this.continueButton = document.getElementById("c")
     this.restartButton = document.getElementById("s")
+    this.startButton = document.getElementById("n")
+    this.startButton.addEventListener("click", () => {
+      this.introEl.classList.add("r");
+    })
     this.continueButton.addEventListener("click", () => {
-      console.log('click continue')
       this.hide()
     })
     this.restartButton.addEventListener("click", () => {
@@ -17,12 +20,9 @@ class Menu {
   }
   show() {
     this.menuEl.classList.remove("r");
-    this.isShow = true
   }
   hide() {
-    console.log('hide')
     this.menuEl.classList.add("r");
-    this.isShow = false
   }
 }
 
