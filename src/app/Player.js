@@ -1,5 +1,4 @@
 import { PLAYER_COLOR, PLAYER_HEIGHT, PLAYER_WIDTH, FRICTION_RATIO, HORIZONTAL_ACCELERATION, GRAVITY, JUMP_ACCELERATION } from '../constant/player'
-import { level } from '../constant/level';
 import { jumpSound, dieSound } from '../constant/sound';
 import { MAP_WIDTH, BLOCK_WIDTH } from '../constant/map';
 
@@ -33,7 +32,7 @@ class Player {
     }
   }
 
-  update(map) {
+  update() {
     // if player go out the map
     if (this.x < 0) {
       this.x = 0;
@@ -66,10 +65,22 @@ class Player {
   render(cx, cy, ctx) {
     const {x, y} = this;
     ctx.save();
-    ctx.fillStyle = PLAYER_COLOR;
-    ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(x - cx, y - cy, PLAYER_WIDTH, PLAYER_HEIGHT * 0.3);
+    ctx.fillRect(x - cx, y - cy + PLAYER_HEIGHT * 0.4, PLAYER_WIDTH, PLAYER_HEIGHT * 0.6);
+    ctx.fillRect(x - cx, y - cy + PLAYER_HEIGHT * 0.4, PLAYER_WIDTH, PLAYER_HEIGHT * 0.6);
+    ctx.fillRect(x - cx, y - cy + PLAYER_HEIGHT * 0.4, PLAYER_WIDTH, PLAYER_HEIGHT * 0.6);
+
+    ctx.fillStyle = 'white'
+    ctx.beginPath();
+    ctx.ellipse(x - cx + PLAYER_WIDTH / 3, y - cy + PLAYER_HEIGHT * 0.1, PLAYER_WIDTH * 0.05, PLAYER_HEIGHT * 0.1, 0, 0, 2 * Math.PI);
+    ctx.ellipse(x - cx + PLAYER_WIDTH / 3 * 2, y - cy + PLAYER_HEIGHT * 0.1, PLAYER_WIDTH * 0.05, PLAYER_HEIGHT * 0.1, 0, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+
     ctx.restore();
   }
+
   revive(position) {
     this.x = position.x
     this.y = position.y

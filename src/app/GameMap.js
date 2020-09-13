@@ -116,73 +116,75 @@ class GameMap {
   }
 
   updateBox(boxes, colorObj) {
+    const backColor = makeRgbColor(colorObj);
+    
     boxes.forEach(box => {
       let col = false;
       let p = box.player;
 
-      this.scaledMapData.forEach(({x, y, w, h, color = 'black'}) => {
+      this.scaledMapData.forEach(({x, y, w}) => {
         if(box.y + BOX_HEIGHT > y && box.y < y && box.x+BOX_WIDTH > x && x+w > box.x) {
             box.y = y-BOX_HEIGHT;
           }
         });
 
-    if (box.color !== colorObj && !checkInitailBackground(colorObj)) {
-      // left collision
-      if (p.x < box.x  && box.x < p.x + PLAYER_WIDTH
-        && box.y < p.y + PLAYER_HEIGHT
-        && box.y + BOX_HEIGHT > p.y
-        && xBoxCollision) {
-          this.scaledMapData.forEach(({x, y, w, h, color = 'black'}) => {
-            if(box.x < x && x < box.x + BOX_WIDTH 
-              && y < box.y + BOX_HEIGHT && y + h > box.y)
-              col = true;
-          });
-          
-          if(!col)
-          box.x = p.x + PLAYER_WIDTH;
-          else 
-          p.x = box.x - PLAYER_WIDTH - 1;
-      }
-  
-      // right collision
-      else if (p.x + PLAYER_WIDTH > box.x + BOX_WIDTH && box.x + BOX_WIDTH > p.x
-        && box.y < p.y + PLAYER_HEIGHT
-        && box.y + BOX_HEIGHT > p.y
-        && xBoxCollision) {
-          this.scaledMapData.forEach(({x, y, w, h, color = 'black'}) => {
-            if(box.x > x && x > box.x - BOX_WIDTH 
-              && y < box.y + BOX_HEIGHT && y + h > box.y){
+      if (makeRgbColor(box.color) !== backColor) {
+        // left collision
+        if (p.x < box.x  && box.x < p.x + PLAYER_WIDTH
+          && box.y < p.y + PLAYER_HEIGHT
+          && box.y + BOX_HEIGHT > p.y
+          && xBoxCollision) {
+            this.scaledMapData.forEach(({x, y, h}) => {
+              if(box.x < x && x < box.x + BOX_WIDTH 
+                && y < box.y + BOX_HEIGHT && y + h > box.y)
                 col = true;
-              }
-          });
-          
-          if(!col)
-          box.x = p.x - BOX_WIDTH;
-          else 
-          p.x = box.x + BOX_WIDTH + 1;
-      }
+            });
+            
+            if(!col)
+            box.x = p.x + PLAYER_WIDTH;
+            else 
+            p.x = box.x - PLAYER_WIDTH - 1;
+        }
+    
+        // right collision
+        else if (p.x + PLAYER_WIDTH > box.x + BOX_WIDTH && box.x + BOX_WIDTH > p.x
+          && box.y < p.y + PLAYER_HEIGHT
+          && box.y + BOX_HEIGHT > p.y
+          && xBoxCollision) {
+            this.scaledMapData.forEach(({x, y, h}) => {
+              if(box.x > x && x > box.x - BOX_WIDTH 
+                && y < box.y + BOX_HEIGHT && y + h > box.y){
+                  col = true;
+                }
+            });
+            
+            if(!col)
+            box.x = p.x - BOX_WIDTH;
+            else 
+            p.x = box.x + BOX_WIDTH + 1;
+        }
 
-      // top collision
-      else if (box.x < p.x + PLAYER_WIDTH
+        // top collision
+        else if (box.x < p.x + PLAYER_WIDTH
+            && box.x + BOX_WIDTH > p.x
+          && p.y < box.y && box.y < p.y + PLAYER_HEIGHT) {
+            xBoxCollision = false;
+          p.y = box.y - PLAYER_HEIGHT;
+          p.jumping = false;
+        }
+
+        // bottom collision
+        else if (box.x < p.x + PLAYER_WIDTH
           && box.x + BOX_WIDTH > p.x
-        && p.y < box.y && box.y < p.y + PLAYER_HEIGHT) {
-          xBoxCollision = false;
-        p.y = box.y - PLAYER_HEIGHT;
-        p.jumping = false;
+          && box.y + BOX_HEIGHT > p.y
+          && p.y + PLAYER_HEIGHT > box.y + BOX_HEIGHT) {
+            xBoxCollision = false;
+            p.y = box.y + BOX_HEIGHT;
+        }
+        else {
+          xBoxCollision = true;
+        }
       }
-
-      // bottom collision
-      else if (box.x < p.x + PLAYER_WIDTH
-        && box.x + BOX_WIDTH > p.x
-        && box.y + BOX_HEIGHT > p.y
-        && p.y + PLAYER_HEIGHT > box.y + BOX_HEIGHT) {
-          xBoxCollision = false;
-          p.y = box.y + BOX_HEIGHT;
-      }
-      else {
-        xBoxCollision = true;
-      }
-    }
   });
  
   }
