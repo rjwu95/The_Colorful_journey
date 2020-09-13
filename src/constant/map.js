@@ -29,3 +29,19 @@ export const GAME_STATE = {
   GAME_CLEAR: 'GAME_CLEAR',
   STAGE_CLEAR: 'STAGE_CLEAR'
 }
+
+export const CLEAR_TEXT_COLOR = [
+  'rgb(216, 39, 53)',
+  'rgb(255, 161, 53)',
+  'rgb(255, 203, 53)',
+  'rgb(255, 249, 53)',
+  '',
+  'rgb(0, 158, 71)',
+  'rgb(22, 221, 53)',
+  'rgb(0, 169, 252)',
+  'rgb(189, 122, 246)',
+  'pink'
+];
+
+export const CLEAR_TEXT = 'GAME CLEAR'
+export const FONT_SIZE = Math.floor(MAP_WIDTH / 35) ;
