@@ -10,6 +10,7 @@ import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
 import { clearSound } from '../constant/sound';
+import { CLEAR_TEXT_COLOR, CLEAR_TEXT, FONT_SIZE } from '../constant/map';
 import Menu from './Menu';
 
 class Game {
@@ -81,19 +82,20 @@ class Game {
         } else {
           addBackgroundColor(colorObj, item.color)
         }
-        item.changeBackground = false;
+          item.changeBackground = false;
       }
     })
 
     boxes.forEach(box => {
-      box.update(colorObj, control)
+      box.update(colorObj, map);
     });
     
     obstacles.forEach(obstacle => {
       obstacle.update(colorObj)
     });
 
-    map.update(player, colorObj)
+    map.update(player, colorObj);
+    map.updateBox(boxes, colorObj);
 
     // when player die
     if (!player.alive) {
@@ -103,20 +105,25 @@ class Game {
 
     // when player reach the portal
     if (this.portal.reach) {
-      this.state = GAME_STATE.STAGE_CLEAR;
-      this.stageNum += 1;
+      if (this.stageNum === 4) {
+        this.state = GAME_STATE.GAME_CLEAR;
+      } else {
+        this.state = GAME_STATE.STAGE_CLEAR;
+        this.stageNum += 1;
+      }
     }
   }
 
   render() {
     const {state, context, map, player, camera, items, boxes, obstacles, portal, colorObj} = this;
 
-    context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
-    if(!checkInitailBackground(colorObj)) {
-      context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
-      context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
+    if (state !== GAME_STATE.GAME_CLEAR) {
+      context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
+      if(!checkInitailBackground(colorObj)) {
+        context.fillStyle = `rgb(${colorObj.r}, ${colorObj.g}, ${colorObj.b})`;
+        context.fillRect(0,0,MAP_WIDTH, MAP_HEIGHT)
+      }
     }
-
     switch (state) {
       case GAME_STATE.GAME_PLAYING:
         this.update();
@@ -138,6 +145,18 @@ class Game {
         initBackgroundColor(colorObj);
         this.load(this.stageNum);
         this.state = GAME_STATE.GAME_PLAYING;
+        break;
+      case GAME_STATE.GAME_CLEAR:
+        setTimeout(() => {
+          context.clearRect(0, 0, MAP_WIDTH, MAP_HEIGHT);
+          context.font = `${FONT_SIZE}px Comic Sans MS`;
+          context.textAlign = 'center'
+          CLEAR_TEXT.split('').forEach((char, idx) => {
+            context.fillStyle = CLEAR_TEXT_COLOR[idx];
+            context.fillText(char, (MAP_WIDTH/2 - (9 * (FONT_SIZE - 10)/2)) + idx * (FONT_SIZE - 10), MAP_HEIGHT/2 - 120);
+          })
+        }, 200)
+
     }
   }
 
