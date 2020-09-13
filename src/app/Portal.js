@@ -1,4 +1,4 @@
-import { BLOCK_WIDTH, POTAL_WIDTH, POTAL_HEIGHT, BLOCK_HEIGHT } from "../constant/map";
+import { BLOCK_WIDTH, POTAL_WIDTH, POTAL_HEIGHT, BLOCK_HEIGHT, ITEM_SIZE } from "../constant/map";
 import { PLAYER_WIDTH, PLAYER_HEIGHT } from '../constant/player'
 import Item from "./Item";
 
@@ -21,10 +21,14 @@ class Portal extends Item{
   }
 
   render(cx, cy) {
-    const {ctx, x, y, color} = this;
+    const {ctx, x, y} = this;
 
     if (this.show) {
-      ctx.fillStyle = color;
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(x - cx + POTAL_WIDTH/2, y - cy, POTAL_WIDTH/2, 0, 2 * Math.PI);
+      ctx.stroke();
+      ctx.fill();
       ctx.fillRect(x - cx, y - cy, POTAL_WIDTH, POTAL_HEIGHT);
     }
   }
