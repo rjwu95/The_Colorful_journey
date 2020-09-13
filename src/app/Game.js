@@ -9,7 +9,7 @@ import {level} from '../constant/level';
 import Obstacle from './Obstacle';
 import Portal from './Portal';
 import {checkInitailBackground, addBackgroundColor, initBackgroundColor} from '../utils/utils'
-import { clearSound, gameClearSound } from '../constant/sound';
+import { clearSound } from '../constant/sound';
 import { CLEAR_TEXT_COLOR, CLEAR_TEXT, FONT_SIZE } from '../constant/map';
 import Menu from './Menu';
 
@@ -37,7 +37,7 @@ class Game {
   }
 
   load(stageNum) {
-    const {map, control, context, camera} = this;
+    const {map, context, camera} = this;
     this.stage = level[stageNum];
 
     map.load(this.stage.buffer, this.stage.map);
@@ -107,17 +107,13 @@ class Game {
 
     // when player reach the portal
     if (this.portal.reach) {
+      const soundURL = jsfxr(clearSound); 
+      const player = new Audio();
+      player.src = soundURL;
+      player.play();
       if (this.stageNum === 4) {
-        const soundURL = jsfxr(gameClearSound); 
-        const player = new Audio();
-        player.src = soundURL;
-        player.play();
         this.state = GAME_STATE.GAME_CLEAR;
       } else {
-        const soundURL = jsfxr(clearSound); 
-        const player = new Audio();
-        player.src = soundURL;
-        player.play();
         this.state = GAME_STATE.STAGE_CLEAR;
         this.stageNum += 1;
       }
