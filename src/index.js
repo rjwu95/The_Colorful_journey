@@ -1,4 +1,4 @@
-import './utils/jsfxr.min.js'
+import './utils/jsfxr.js'
 import Game from './app/Game'
 
 let game;
