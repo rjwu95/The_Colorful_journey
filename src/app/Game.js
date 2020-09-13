@@ -27,7 +27,7 @@ class Game {
 
     this.camera = new Camera();
     this.map = new GameMap(this.context);
-    this.control = new Control()
+    this.control = new Control(this)
     this.menu = new Menu(this);
     this.control.init(this.menu);
     if (this.state === GAME_STATE.GAME_READY) {
